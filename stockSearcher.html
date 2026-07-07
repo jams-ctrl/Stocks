@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jamsBot</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1 class="page-title"> Say hello to <span class="brand">jamsBot</span></h1>
+        <form class="search-container" id="search-form">
+            <input type="text" id="search-input" placeholder="Enter Stock Symbol...">
+            <button type="submit" id="search-button">Search</button>
+        </form>
+        <div class="data SOI">
+            <h3 class="data-title"> Stocks of Interest</h3>
+            <p class="data-text"> The top 10 most interesting stocks will go here</p>
+        </div>
+        <div class="data jamsAi">
+            <h3 class="data-title"> jamsAi</h3>
+            <p class="data-text"> The output of the stock-data bot will go here</p>
+        </div>
+        <div class="data News">
+            <h3 class="data-title"> News</h3>
+            <p class="data-text"> Current relevant news will go here</p>
+        </div>
+        <div class="data SMedia">
+            <h3 class="data-title"> Social Media</h3>
+            <p class="data-text"> Current relevant social media will go here</p>
+        </div>
+        <script>
+            document.getElementById('search-form').addEventListener('submit', function(e){
+                e.preventDefault
+                let symbol = document.getElementById('search-input').value()
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin:0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*background: radial-gradient(circle at center, #ff3b3b 0%, #b30000 20%, #4d0000 40%, #000000 100%);*/
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100vh;
+    height: 50vh;
+    background: #ff3b3b;
+    filter: blur(200px);
+    z-index:0
+}
+
+.page-title{
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight:4 00;
+    text-align: center;
+    margin-bottom: 10vh;
+}
+
+.page-title .brand {
+    font-family: "Dancing Script", cursive;
+    font-size: 64px;
+    font-weight: 700;
+    color: #5571ff;
+    display: inline-block;
+    line-height:1;
+    margin-left: 4px;
+}
+
+.search-container{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 40%;
+    padding: 0 20px;
+    z-index: 1;
+}
+
+#search-input {
+    flex: 1;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+    transition: border-color 0.2s, box-shadow 0.2s
+}
+
+#search-button {
+    padding: 12px 22px;
+    font-size: 16px;
+    background: #000000;
+    color: #f7f7f7;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.5s;
+    outline: none;
+    border: none;
+}
+
+#search-button:hover {
+    background: #ff7070
+}
+
+:root {
+  --padding: 10vh
+}
+
+.SOI{
+    top: var(--padding);
+    left: var(--padding);
+}
+
+.jamsAi{
+    left: var(--padding);
+    bottom: var(--padding); 
+}
+
+.News{
+    top: var(--padding);
+    right: var(--padding);
+}
+
+.SMedia{
+    bottom: var(--padding); 
+    right: var(--padding);
+}
+
+.data{
+    position: absolute;
+    z-index: 1;
+    background: #5571ff;
+    color: #000000;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    max-width: 200px;
+    transition: background 0.5s;
+}
+
+.data:hover{
+    background: #ff7070
+}
+
+.data-title{
+    margin: 0 0 2vh 0 ;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.data-text{
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #333333;
+}
