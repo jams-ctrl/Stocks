@@ -6,7 +6,7 @@ DB_PATH = "mentions.db"
 
 # create table with said columns
 SCHEMA = """
-CREATE TABLE IS NOT EXISTS mentions (
+CREATE TABLE IF NOT EXISTS mentions (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     ticker TEXT NOT NULL, 
     source_type TEXT NOT NULL, 
