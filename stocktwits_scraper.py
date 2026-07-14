@@ -6,7 +6,8 @@ STOCKTWITS_URL =  "https://api.stocktwits.com/api/2/streams/symbol/{symbol}.json
 def get_stocktwits_mentions(ticker: str, company_name=None):
     # define url based on ticker symbol or company name 
     url = STOCKTWITS_URL.format(symbol=ticker) if company_name is None else STOCKTWITS_URL.format(symbol=company_name)
-    resp = requests.get(url, timeout=15)
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; stock-news-bot/1.0)"}
+    resp = requests.get(url,headers=headers, timeout=15)
 
     # handle errors
     if resp.status_code == 429:
@@ -49,7 +50,7 @@ def get_stocktwits_mentions(ticker: str, company_name=None):
                 "raw_json": str({
                     "sentiment": sentiment,
                     "follower_count": user.get("followers"),
-                    "is_official": user.get("official, False"),
+                    "is_official": user.get("official", False),
                 }),
             }
         )
