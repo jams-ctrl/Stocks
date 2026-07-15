@@ -84,3 +84,12 @@ def daily_mention_counts(conn, ticker: str, days:int) -> list[int]:
         (ticker, since.isoformat()),
     ).fetchall()
     return [r["c"] for r in rows]
+
+def edgar_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DEC LIMIT ?", (ticker, "edgar", limit)).fetchall()
+    return [dict(r) for r in top]
+
+def stocktwits_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DEC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
+    return [dict(r) for r in top]
+
