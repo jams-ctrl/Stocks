@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>jamsBot</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         <h1 class="page-title"> Say hello to <span class="brand">jamsBot</span></h1>
@@ -31,12 +31,34 @@
             <p class="data-text" id="chat"> Say something...</p>
         </div>
         <script>
-            document.getElementById('search-form').addEventListener('submit', function(e){
-                e.preventDefault
-                let symbol = document.getElementById('search-input').value()
+            document.getElementById('search-form').addEventListener('submit', async function(e){
+                e.preventDefault()
+                let symbolInput = document.getElementById('search-input');
+                let symbol = symbolInput.value.trim()
+                if (!symbol) return;
 
+                let chatBox = document.getElementById('chat')
+                let SMediaBox = document.getElementById('SMedia')
+                try {
+                    let resp = await fetch(`/api/summary?ticker=${encodeURIComponent(symbol)}`);
+                    if (!resp.ok){
+                        throw new Error(`Server returned ${resp.status}`);
+                    }
+                    let data = await resp.json();
+                    let edgar = data.edgar.length ? data.edgar.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.text || '').slice(0, 150)}</p>`).join(''): '<p class="data-text">No recent EDGAR filings.</p>';
+                    let stocktwits = data.stocktwits.length? data.stocktwits.map(item => `<p class="data-text">${(item.text || '').slice(0, 150)}</p>`).join(''): '<p class="data-text">No recent StockTwits mentions.</p>';
+                    
+                    SMediaBox.innerHTML = 
+                        `<p class = "data-title">${data.ticker}</p>` + 
+                        `<p class="data-title" style="margin-top:1vh;">EDGAR</p>` + edgar +
+                        `<p class="data-title" style="margin-top:1vh;">StockTwits</p>` + stocktwits;
+                    
+                chatBox.innerHTML = '<p class="data-text">Showing results for <strong>${data.ticker}</strong>.</p>';
+                }
+                catch (e) {
+                    chatBox.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;
+                }
             })
-
         </script>
     </body>
 </html>
