@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 
-from storage import *
+from webapp.storage import *
 
 from web_scrapers.edgar_scraper import get_edgar_filings
 # from web_scrapers.reddit_scraper import get_reddit_mentions
@@ -100,7 +100,7 @@ def run(ticker: str, company_name: str | None):
         
         recent_1h = count_recent_mentions(conn, ticker, hours=1)
         recent_24h = count_recent_mentions(conn, ticker, hours=24)
-        baseline_counts = count_recent_mentions(conn, ticker, hours=720)
+        baseline_counts = daily_mention_counts(conn, ticker, days=30)
 
     #show summary
     print(f"{ticker} summary")
@@ -111,7 +111,7 @@ def run(ticker: str, company_name: str | None):
 
     # look at zscore to see if volume fluctuates
     z = compute_volume_zscore(recent_24h, baseline_counts)
-    print(f"volume z-score vs 30-day daily basetline: {z:.2f}" if z is not None else "not enough history yet for a baseline")
+    print(f"volume z-score vs 30-day daily baseline: {z:.2f}" if z is not None else "not enough history yet for a baseline")
 
     if z is not None and z >= 3:
         print(">>> VOLUME SPIKE DETECTED -- consider triggering Pipeline B <<<<")
@@ -126,13 +126,14 @@ def compute_volume_zscore(current_count: int, baseline_counts: list[int]):
     mean = statistics.mean(baseline_counts)
     stdev = statistics.pstdev(baseline_counts)
     if stdev == 0: 
-        return (current_count-mean) / stdev
+        return None
+    return (current_count-mean) / stdev
     
 if __name__ == "__main__":
     # parses arguements to allow compatibility with cron; only ran if main is not imported
     parser = argparse.ArgumentParser(description="pipeline A: structured news/filing/social ingestion")
     parser.add_argument("ticker", help="stock ticker symbol, e.g. TSLA")
-    parser.add_argument("--company", help='full company name for EDGAR search, e.g. "Tesla, Inc."', default=None)
+    parser.add_argument("company", nargs="?", default=None, help='full company name for EDGAR search, e.g. "Tesla, Inc."')
     args = parser.parse_args()
  
     run(args.ticker, args.company)
