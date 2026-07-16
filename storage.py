@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS mentions (
     published_at TEXT NOT NULL, 
     fetched_at TEXT NOT NULL, 
     raw_json TEXT, 
+    follower_count INTEGER
     UNIQUE(source_type, external_id)
 );
 
@@ -85,11 +86,12 @@ def daily_mention_counts(conn, ticker: str, days:int) -> list[int]:
     ).fetchall()
     return [r["c"] for r in rows]
 
+# key links to webpage, gets most important articles to show on website
 def edgar_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
-    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DEC LIMIT ?", (ticker, "edgar", limit)).fetchall()
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DESC LIMIT ?", (ticker, "edgar", limit)).fetchall()
     return [dict(r) for r in top]
 
 def stocktwits_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
-    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DEC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
     return [dict(r) for r in top]
 
