@@ -28,7 +28,7 @@ def get_stocktwits_mentions(ticker: str, company_name=None):
         entities = msg.get("entities") or {}
         sentiment_obj = entities.get("sentiment")
         if sentiment_obj:
-            # get the "bullish" or "bearish" tag from stocktwits as a form of authenticity
+            # get the "bullish" or "bearish" tag from stocktwits as a form of if the stock may go up or not - look into it further as a form of authenticity - currently just sticking with follower_count
             sentiment = sentiment_obj.get("basic")
 
         # pulls out object so can be accessed easily
@@ -49,8 +49,8 @@ def get_stocktwits_mentions(ticker: str, company_name=None):
                 # important, can be used to evaluate authenticity and impact
                 "raw_json": str({
                     "sentiment": sentiment,
-                    "follower_count": user.get("followers"),
                     "is_official": user.get("official", False),
+                "follower_count": user.get("followers")
                 }),
             }
         )
