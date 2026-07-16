@@ -12,12 +12,12 @@ def index():
 # if ticker is entered as search
 @app.route("/ticker_given")
 def summary():
-    ticker = request.args.get("ticker", "").strip().uppder()
+    ticker = request.args.get("ticker", "").strip().upper()
 
     if not ticker:
         return jsonify ({"error": "missing ticker"}), 400
     
-    with get_conn as conn:
+    with get_conn() as conn:
         edgar = edgar_summary(conn, ticker)
         stocktwits = stocktwits_summary(conn, ticker)
 
