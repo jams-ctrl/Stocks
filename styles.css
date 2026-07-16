@@ -146,7 +146,12 @@ body::before {
     border-radius: 8px;
     font-size: 14px;
     min-width: 40vh;
+    max-width: 40vh;
     min-height: 30vh;
+    max-height: 30vh;
+    overflow-y:auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     transition: background 0.5s;
 }
 
