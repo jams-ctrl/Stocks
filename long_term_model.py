@@ -3,9 +3,14 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
+import joblib
+import os
 
 # load data
-df = pd.read_csv("stock_data/AAPL_5yr_data.csv")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, "..", "stock_data", "AAPL_5yr_data.csv")
+
+df = pd.read_csv(csv_path)
 
 # define stock features 
 feature_cols = ["return_1d","return_5d","return_10d","price_vs_ma10","price_vs_ma50","rsi_14","volatility_10d","volume_change","volume_vs_avg20"]
@@ -54,3 +59,9 @@ print(f"Loss: {test_loss:.4f} Accuracy: {test_acc:.4f}")
 # compare against baseline
 baseline_acc = max(Y_test.mean(), 1-Y_test.mean())
 print(f"Baseline(always predict majority): {baseline_acc:.4f}")
+
+# save model to file
+model.save("long_term_model.keras")
+
+# save scalar to preserve mean and stdev used during training
+joblib.dump(scaler, ("model.scaler.pk1"))
