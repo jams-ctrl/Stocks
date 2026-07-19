@@ -4,9 +4,10 @@ from datetime import datetime, timezone, timedelta
 EDGAR_FTS_URL = "https://efts.sec.gov/LATEST/search-index"
 
 # high-signal filing types, expand if need more coverage
-DEFAULT_FORMS = ["8-K", "4", "SC 13D", "SC 13G"]
+DEFAULT_FORMS = ["8-K", "4", "SC 13D", "SC 13G","NT 10-Q","NT 10-K","144"]
 
-def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: int=2):
+# days-back- days back to extend search by
+def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: int=200):
     # note company_name is exact or partial company name as registered with the SEC - E.g "Tesla, Inc."; ticker symbols are unreliable
     # forms - list of form types to filter on - defaults to DEFAULT_FORMS
 
@@ -25,7 +26,7 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
             "enddt": _today(),
 
         }
-        resp = requests.get(EDGAR_FTS_URL, params=params, header=headers, timeout=15)
+        resp = requests.get(EDGAR_FTS_URL, params=params, headers=headers, timeout=15)
         # handle error
         if resp.status_code != 200:
             print(f"[edgar] error: form={form} status={resp.status_code}")
@@ -51,12 +52,12 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
                     "author": src.get("display_names", [company_name])[0],
                     # for debugging purposes
                     "url": filing_url,
-                    "title": f"{form} filing - {src.get("display_names", [company_name])[0]}", 
+                    "title": f"{form} filing - {src.get('display_names', [company_name])[0]}", 
                     # gives body text of post 
                     "text": src.get("file_description",""),
                     "published_at": _to_iso(filed_at),
                     # important, can be used to evaluate authenticity and impact
-                    "raw_json": str(src)
+                    "raw_json": str(src),
                 }
             )
 
