@@ -2,7 +2,10 @@ import sqlite3
 from contextlib import contextmanager  
 from datetime import datetime, timedelta, timezone
 
-DB_PATH = "mentions.db"
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "mentions.db")
 
 # create table with said columns
 SCHEMA = """
@@ -19,7 +22,7 @@ CREATE TABLE IF NOT EXISTS mentions (
     published_at TEXT NOT NULL, 
     fetched_at TEXT NOT NULL, 
     raw_json TEXT, 
-    follower_count INTEGER
+    follower_count INTEGER, 
     UNIQUE(source_type, external_id)
 );
 
@@ -51,8 +54,8 @@ def insert_mention(conn, mention:dict) -> bool:
         # pass mention dict as parameter to get easy access to inside values
         conn.execute(
             """
-            INSERT INTO mentions (ticker, source_type, source_name, author, external_id, url, title, text, published_at, fetched_at, raw_json)
-            VALUES (:ticker, :source_type, :source_name, :author, :external_id, :url, :title, :text,:published_at, :fetched_at, :raw_json)
+            INSERT INTO mentions (ticker, source_type, source_name, author, external_id, url, title, text, published_at, fetched_at, raw_json, follower_count)
+            VALUES (:ticker, :source_type, :source_name, :author, :external_id, :url, :title, :text,:published_at, :fetched_at, :raw_json, :follower_count)
             """,
             mention,
         )
@@ -87,11 +90,15 @@ def daily_mention_counts(conn, ticker: str, days:int) -> list[int]:
     return [r["c"] for r in rows]
 
 # key links to webpage, gets most important articles to show on website
-def edgar_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
+def edgar_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
     top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DESC LIMIT ?", (ticker, "edgar", limit)).fetchall()
     return [dict(r) for r in top]
 
-def stocktwits_summary(conn, ticker:str, limit:int = 3) -> list[dict]:
+def stocktwits_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
     top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
+    return [dict(r) for r in top]
+
+def news_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    top = conn.execute("SELECT title, text, url, published_at, source_name FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "newsapi", limit)).fetchall()
     return [dict(r) for r in top]
 
