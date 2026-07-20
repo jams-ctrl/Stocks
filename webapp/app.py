@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 
-from storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
+# for vercel must add __init__.py to make this its own package
+try :
+    from .storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
+except ImportError:
+    from storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
 
 import sys
 import os
