@@ -145,8 +145,8 @@ body::before {
     padding: 16px 20px;
     border-radius: 8px;
     font-size: 14px;
-    min-width: 50vh;
-    max-width: 50vh;
+    min-width: 40vh;
+    max-width: 40vh;
     min-height: 40vh;
     max-height: 40vh;
     overflow-y:auto;
