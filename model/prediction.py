@@ -40,7 +40,11 @@ def build_features(df):
     return df
 
 # model_path and scaler_path adjusted for calls from backend.py (python only considers files relative to the file that is running)
-def predict_latest(ticker, model_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model", "long_term_model.keras"), scaler_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model", "model.scaler.pk1")):
+def predict_latest(ticker):
+    # model_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model", f"company_models.{ticker}_long_term_model.keras")
+    # scaler_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model", f"company_models.{ticker}_model.scaler.pk1")
+    model_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "company_models",f"{ticker}_long_term_model.keras")
+    scaler_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "company_models",f"{ticker}_model.scaler.pk1")
     feature_cols = [
         "return_1d", "return_5d", "return_10d",
         "price_vs_ma10", "price_vs_ma50",
@@ -49,7 +53,7 @@ def predict_latest(ticker, model_path=os.path.join(os.path.dirname(os.path.abspa
     ]
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(script_dir, "..", "stock_data", "AAPL_5yr_data.csv")
+    csv_path = os.path.join(script_dir, "..", "stock_data", f"{ticker}_5yr_data.csv")
 
     # load price data current for this ticker - CHANGE IF CHANGE NAMES OF CSV FILES
     df = pd.read_csv(csv_path)
