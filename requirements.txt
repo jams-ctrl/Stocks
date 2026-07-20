@@ -1,13 +1,11 @@
 pandas
 numpy
 scikit-learn
-tensorflow-macos
+tensorflow
 requests>=2.31.0
 praw>=7.7.1
 python-dotenv>=1.0.1
-lxml 
+lxml
 html5lib
-requests
 joblib
 flask
-python-dotenv
