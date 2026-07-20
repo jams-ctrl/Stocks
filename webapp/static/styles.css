@@ -145,10 +145,10 @@ body::before {
     padding: 16px 20px;
     border-radius: 8px;
     font-size: 14px;
-    min-width: 40vh;
-    max-width: 40vh;
-    min-height: 30vh;
-    max-height: 30vh;
+    min-width: 50vh;
+    max-width: 50vh;
+    min-height: 40vh;
+    max-height: 40vh;
     overflow-y:auto;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -170,4 +170,12 @@ body::before {
     font-size: 13px;
     line-height: 1.4;
     color: #333333;
+}
+
+#ticker{
+    padding: None;
+    margin: None;
+    font-size: 25px;
+    font-weight: 1000;
+    color: #ffffff;
 }
