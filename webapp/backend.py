@@ -2,13 +2,13 @@ from flask import Flask, request, jsonify, render_template
 
 from storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
 
-from company_name_converter import get_other_names
-
 import sys
 import os
 
 # go up one parent folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
+from company_name_converter import get_other_names, get_top_50
 
 from model.prediction import predict_latest
 
@@ -22,8 +22,9 @@ def index():
 # if ticker is entered as search
 @app.route("/company_given")
 def summary():
+    tickers = get_top_50()
     company = request.args.get("company", "").strip().lower()
-    if len(company) == 4:
+    if company.upper() in tickers:
         if (get_other_names(company.upper()) is not None):
             ticker = company.upper()
         else:
