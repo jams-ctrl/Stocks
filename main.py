@@ -18,15 +18,17 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 from webapp.storage import *
+from company_name_converter import get_other_names
 
 from web_scrapers.edgar_scraper import get_edgar_filings
 # from web_scrapers.reddit_scraper import get_reddit_mentions
 from web_scrapers.stocktwits_scraper import get_stocktwits_mentions
 
+from company_name_converter import get_top_50
+
 load_dotenv()
 
-# needs ticker but optional company name for edgar
-def run(ticker: str, company_name: str | None):
+def run(ticker: str):
     # start database and log time
     init_db()
     now = datetime.now(timezone.utc).isoformat()
@@ -37,8 +39,10 @@ def run(ticker: str, company_name: str | None):
     # load hits from edgar
     edgar_user_agent = os.getenv("EDGAR_USER_AGENT")
     # make sure user agent enabled
-    if edgar_user_agent and company_name:
+    if edgar_user_agent:
         try: 
+            # get full company name from ticker symbol
+            i,company_name,j = get_other_names(ticker)
             # gets hits and appends them to all_mentions
             edgar_hits = get_edgar_filings(company_name, edgar_user_agent)
             print (f"[edgar] fetched {len(edgar_hits)} filings")
@@ -93,6 +97,7 @@ def run(ticker: str, company_name: str | None):
             m.setdefault("author", None)
             m.setdefault("url", None)
             m.setdefault("raw_json", None)
+            m.setdefault("follower_count", None)
             if insert_mention(conn, m):
                 inserted += 1
             else:
@@ -131,9 +136,10 @@ def compute_volume_zscore(current_count: int, baseline_counts: list[int]):
     
 if __name__ == "__main__":
     # parses arguements to allow compatibility with cron; only ran if main is not imported
-    parser = argparse.ArgumentParser(description="pipeline A: structured news/filing/social ingestion")
-    parser.add_argument("ticker", help="stock ticker symbol, e.g. TSLA")
-    parser.add_argument("company", nargs="?", default=None, help='full company name for EDGAR search, e.g. "Tesla, Inc."')
-    args = parser.parse_args()
- 
-    run(args.ticker, args.company)
+    # parser = argparse.ArgumentParser(description="pipeline A: structured news/filing/social ingestion")
+    # parser.add_argument("ticker", help="stock ticker symbol, e.g. TSLA")
+    # args = parser.parse_args()
+    tickers = get_top_50()
+    for ticker in tickers:
+        run(ticker)
+
