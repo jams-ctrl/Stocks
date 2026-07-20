@@ -1,2 +1,20 @@
+[project]
+name = "stock-searcher"
+version = "0.1.0"
+requires-python = "<=3.12"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "tensorflow",
+    "requests>=2.31.0",
+    "praw>=7.7.1",
+    "python-dotenv>=1.0.1",
+    "lxml",
+    "html5lib",
+    "joblib",
+    "flask",
+]
+
 [tool.vercel]
-entrypoint = "webapp.app:app"
+entrypoint = "webapps.app:app"
