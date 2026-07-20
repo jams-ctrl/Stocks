@@ -7,12 +7,62 @@
     <body>
         <h1 class="page-title"> Say hello to <span class="brand">jamsBot</span></h1>
         <form class="search-container" id="search-form">
-            <input type="text" id="search-input" placeholder="Enter Stock Symbol or Company Name...">
+            <input type="text" id="search-input" placeholder="Enter Stock Symbol, Company Name, or Common Name...">
             <button type="submit" id="search-button">Search</button>
         </form>
         <div class="data SOI">
-            <h3 class="data-title"> Stocks of Interest</h3>
-            <p class="data-text" id="SOI"> The top 10 most interesting stocks will go here</p>
+            <h3 class="data-title"> Dev Notes </h3>
+            <p class="data-text" id="SOI"> Hey Victoria, thanks for checking this out, hope you like it! The current available stocks are: <br> <br>
+            "NVDA",   # NVIDIA Corporation <br>
+            "AAPL",   # Apple Inc.<br>
+            "MSFT",   # Microsoft Corporation<br>
+            "GOOGL",  # Alphabet Inc. (Class A)<br>
+            "GOOG",   # Alphabet Inc. (Class C)<br>
+            "AMZN",   # Amazon.com Inc.<br>
+            "META",   # Meta Platforms Inc.<br>
+            "AVGO",   # Broadcom Inc.<br>
+            "TSLA",   # Tesla Inc.<br>
+            "ASML",   # ASML Holding N.V.<br>
+            "ADBE",   # Adobe Inc.<br>
+            "CSCO",   # Cisco Systems Inc.<br>
+            "INTC",   # Intel Corporation<br>
+            "AMD",    # Advanced Micro Devices Inc.<br>
+            "QCOM",   # Qualcomm Inc.<br>
+            "TXN",    # Texas Instruments Inc.<br>
+            "INTU",   # Intuit Inc.<br>
+            "AMAT",   # Applied Materials Inc.<br>
+            "MU",     # Micron Technology Inc.<br>
+            "ADI",    # Analog Devices Inc.<br>
+            "LRCX",   # Lam Research Corporation<br>
+            "KLAC",   # KLA Corporation<br>
+            "SNPS",   # Synopsys Inc.<br>
+            "CDNS",   # Cadence Design Systems Inc.<br>
+            "PANW",   # Palo Alto Networks Inc.<br>
+            "CRWD",   # CrowdStrike Holdings Inc.<br>
+            "FTNT",   # Fortinet Inc.<br>
+            "PYPL",   # PayPal Holdings Inc.<br>
+            "NFLX",   # Netflix Inc.<br>
+            "CMCSA",  # Comcast Corporation<br>
+            "PEP",    # PepsiCo Inc.<br>
+            "COST",   # Costco Wholesale Corporation<br>
+            "SBUX",   # Starbucks Corporation<br>
+            "MRVL",   # Marvell Technology Inc.<br>
+            "ADSK",   # Autodesk Inc.<br>
+            "WDAY",   # Workday Inc.<br>
+            "TEAM",   # Atlassian Corporation<br>
+            "ZS",     # Zscaler Inc.<br>
+            "DDOG",   # Datadog Inc.<br>
+            "MDB",    # MongoDB Inc.<br>
+            "SNOW",   # Snowflake Inc.<br>
+            "DOCU",   # DocuSign Inc.<br>
+            "OKTA",   # Okta Inc.<br>
+            "NXPI",   # NXP Semiconductors N.V.<br>
+            "MCHP",   # Microchip Technology Inc.<br>
+            "ON",     # ON Semiconductor Corporation<br>
+            "EA",     # Electronic Arts Inc.<br>
+            "ROKU",   # Roku Inc.<br>
+            "ZM",     # Zoom Communications Inc.<br>
+            "CTSH",   # Cognizant Technology Solutions Corp.</p>
         </div>
         <div class="data jamsAI">
             <h3 class="data-title"> jamsAI</h3>
@@ -27,8 +77,8 @@
             <p class="data-text" id="SMedia"> Current relevant social media will go here</p>
         </div>
         <div class="chat">
-            <h3 class="data-title"> Chat</h3>
-            <p class="data-text" id="chat"> Say something...</p>
+            <h3 class="data-title"> Terminal</h3>
+            <p class="data-text" id="chat"> Outputs will go here...</p>
         </div>
         <script>
             document.getElementById('search-form').addEventListener('submit', async function(e){
@@ -72,7 +122,7 @@
                     } else {
                         bot = '<p class="data-text">Ticker not present in bot database.</p>';
                     }
-
+                    
                     SMediaBox.innerHTML = 
                         `<p class="data-title" id="ticker">${data.ticker}</p>` + 
                         `<p class="data-title" style="margin-top:1vh;">EDGAR</p>` + edgar +
