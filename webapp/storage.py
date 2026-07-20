@@ -1,104 +1,56 @@
-import sqlite3
-from contextlib import contextmanager  
-from datetime import datetime, timedelta, timezone
+from flask import Flask, request, jsonify, render_template
 
+import sys
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "mentions.db")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# create table with said columns
-SCHEMA = """
-CREATE TABLE IF NOT EXISTS mentions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    ticker TEXT NOT NULL, 
-    source_type TEXT NOT NULL, 
-    source_name TEXT, 
-    author TEXT, 
-    external_id TEXT NOT NULL, 
-    url TEXT,
-    Title TEXT,
-    text TEXT, 
-    published_at TEXT NOT NULL, 
-    fetched_at TEXT NOT NULL, 
-    raw_json TEXT, 
-    follower_count INTEGER, 
-    UNIQUE(source_type, external_id)
-);
+from storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
 
-CREATE INDEX IF NOT EXISTS idx_mentions_ticker_time
-    ON mentions(ticker, published_at);
-"""
-# above: create "shortcut" that sqlite can jump to to quickly navigate table and yield output
+# import sys
+# import os
 
-@contextmanager
-# open connection with database using context manager
-def get_conn(db_path: str = DB_PATH):
-    conn = sqlite3.connect(db_path)
-    # categorize each value as a dictionary-like row-column pair
-    conn.row_factory = sqlite3.Row
-    try: 
-        yield conn
-        conn.commit()
-    finally: 
-        conn.close
+# go up one parent folder
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
+from company_name_converter import get_other_names, get_top_50
 
-def init_db(db_path: str = DB_PATH):
-    with get_conn(db_path) as conn:
-        # runs schema listed above
-        conn.executescript(SCHEMA)
+from model.prediction import predict_latest
 
-# inserts new row into table
-def insert_mention(conn, mention:dict) -> bool:
-    try :
-        # pass mention dict as parameter to get easy access to inside values
-        conn.execute(
-            """
-            INSERT INTO mentions (ticker, source_type, source_name, author, external_id, url, title, text, published_at, fetched_at, raw_json, follower_count)
-            VALUES (:ticker, :source_type, :source_name, :author, :external_id, :url, :title, :text,:published_at, :fetched_at, :raw_json, :follower_count)
-            """,
-            mention,
-        )
-        return True
-    except sqlite3.IntegrityError:
-        # if the row is repetative (external_id is not unique)
-        return False
-    
-def count_recent_mentions(conn, ticker:str, hours:int) -> int:
-    # count recent mentions of stock, cutoff at an hour
-    since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
-    # index helps a lot with fast searching
-    row = conn.execute(
-        "SELECT COUNT(*) AS c FROM mentions WHERE ticker = ? AND published_at >= ?", (ticker, since),
-    ).fetchone()
-    return row["c"]
+app = Flask(__name__)
 
-def daily_mention_counts(conn, ticker: str, days:int) -> list[int]:
-    since = (datetime.now (timezone.utc) - timedelta(days=days)).date()
-    # chops ISO timestamp into just date section with days as lowest value
-    # adds one to count for every day stock is mentioned
-    rows = conn.execute(
-        """
-        SELECT substr(published_at, 1, 10) AS day, COUNT(*) AS c 
-        FROM mentions
-        WHERE ticker = ? AND published_at >= ?
-        GROUP BY day
-        ORDER BY day ASC
-        """,
-        (ticker, since.isoformat()),
-    ).fetchall()
-    return [r["c"] for r in rows]
+# if just loading up the page
+@app.route("/")
+def index():
+    return render_template("stockSearcher.html")
 
-# key links to webpage, gets most important articles to show on website
-def edgar_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
-    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DESC LIMIT ?", (ticker, "edgar", limit)).fetchall()
-    return [dict(r) for r in top]
+# if ticker is entered as search
+@app.route("/company_given")
+def summary():
+    tickers = get_top_50()
+    company = request.args.get("company", "").strip().lower()
+    if company.upper() in tickers:
+        if (get_other_names(company.upper()) is not None):
+            ticker = company.upper()
+        else:
+            return jsonify ({"error": "company not in database"}), 400
+    else:
+        result = get_other_names(company.capitalize())
+        if result is None:
+            return jsonify({"error": "company not in database"}), 400
+        i, ticker, j = result
+        if ticker is None:
+            return jsonify({"error": "company not in database"}), 400
 
-def stocktwits_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
-    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
-    return [dict(r) for r in top]
+    with get_conn() as conn:
+        edgar = edgar_summary(conn, ticker)
+        stocktwits = stocktwits_summary(conn, ticker)
+        news = news_summary(conn, ticker)
+        prediction, probability = predict_latest(ticker)
+        bot = {"prediction": prediction, "probability": probability}
 
-def news_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
-    top = conn.execute("SELECT title, text, url, published_at, source_name FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "newsapi", limit)).fetchall()
-    return [dict(r) for r in top]
+    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "bot": bot})
 
+if __name__ == "__main__":
+    init_db()
+    app.run(debug=True, port=8080)
