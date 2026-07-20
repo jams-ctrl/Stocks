@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 DEFAULT_SUBREDDITS = ["stocks", "wallstreetbets", "investing", "stockMarket"]
 
-def get_reddit_mentions(ticker: str, client_id: str, client_secret:str, user_agent: str,subreddits=None,limit_per_sub: int=25):
+def get_reddit_mentions(ticker: str, client_id: str, client_secret:str, user_agent: str,subreddits=None,company_name=None, limit_per_sub: int=25):
     subreddits = subreddits or DEFAULT_SUBREDDITS
 
     # use praw library to scrape reddit; client-side stuff will be imported in .env file
@@ -15,22 +15,26 @@ def get_reddit_mentions(ticker: str, client_id: str, client_secret:str, user_age
     reddit.read_only = True
 
     results = []
-    query = str(ticker)
+    # use ticker to search or company_name optionally 
+    query = ticker if company_name is None else company_name
 
     for sub_name in subreddits:
         # for each subreddit search for the stock symbol and log various details about the post 
         # in a try-catch to stop errors
         try: 
             selected_subreddit = reddit.subreddit(sub_name)
+            # capped at 25 results to not dig into old threads
             for post in selected_subreddit.search(query, sort="new", time_filer="day"):
                 results.append(
                     {
+                        # stop duplicates
                         "external_id": post.id,
                         "source_name": sub_name,
                         "author": str(post.author) if post.author else "[deleted]",
                         # for debugging purposes
                         "url": f"https://reddit.com{post.permalink}",
                         "title": post.title, 
+                        # gives body text of post 
                         "text": (post.selftext or "")[:2000],
                         "published_at": datetime.fromtimestamp(post.created_utc, tz=timezone.utc).isoformat(),
                         # important, can be used to evaluate authenticity and impact
