@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 
 # top 50 tech companies
 tickers = [
@@ -65,6 +66,8 @@ for company in tickers:
     if data is not None:
         rows = data['data']['tradesTable']['rows']
     df = pd.DataFrame(rows)
-
+    # make path to navigate different folders
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(script_dir, "..", "stock_data", f"{company}_5yr_data.csv")
     # turn dataFrame into csv and download
-    df.to_csv(company + "_5yr_data.csv", index=False)
+    df.to_csv(csv_path, index=False)
