@@ -8,6 +8,10 @@ import sys
 import requests
 from dotenv import load_dotenv
 
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from storage import init_db, get_conn, insert_mention
 
 load_dotenv()
