@@ -18,13 +18,13 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 from webapp.storage import *
-from company_name_converter import get_other_names
+from company_name_manager import get_other_names
 
 from web_scrapers.edgar_scraper import get_edgar_filings
 # from web_scrapers.reddit_scraper import get_reddit_mentions
 from web_scrapers.stocktwits_scraper import get_stocktwits_mentions
 
-from company_name_converter import get_top_50
+from company_name_manager import get_top_50
 
 load_dotenv()
 

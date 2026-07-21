@@ -1,3 +1,5 @@
+# Using all the models and scalers in company-models, calls the correct model for every ticker 
+# and uses that model to make a prediction off of current data
 import pandas as pd
 import numpy as np
 from tensorflow import keras

@@ -1,3 +1,4 @@
+# given various company csv's, makes a model and scaler for each company based on past features labeled in dataModifier.py
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -9,7 +10,7 @@ import sys
 # go up one parent folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from company_name_converter import get_top_50
+from company_name_manager import get_top_50
 
 # get top 50 companies
 tickers = get_top_50()
