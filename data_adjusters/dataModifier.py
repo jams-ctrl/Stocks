@@ -1,3 +1,6 @@
+# takes the data of the top 50 stock companies as downloaded by stockDownloader.py and computes various key features about the stock. 
+# then, appends these features onto the csv file for the ai to be trained on 
+
 import pandas as pd
 import os
 from pathlib import Path
