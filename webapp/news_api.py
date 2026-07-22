@@ -32,6 +32,7 @@ DEFAULT_AUTHORITY = 2 # by default, sources get modest authority
 
 # page_size limits input
 def get_news(query:str, api_key:str, page_size: int=20):
+    # filter search
     params = {
         "q": query,
         "apiKey": api_key,
@@ -41,6 +42,7 @@ def get_news(query:str, api_key:str, page_size: int=20):
     }
     resp = requests.get(NEWSAPI_URL, params=params, timeout=15)
 
+    # handle error codes
     if resp.status_code == 429:
         print("[newsapi] error: rate limited (100/day on free tier), skipping this run")
         return[]
@@ -65,8 +67,9 @@ def to_mention(article:dict, ticker:str, fetched_at:str) -> dict | None:
     external_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:32]
 
     description = article.get("description") or ""
+    # visual declaration of authority
     text = f"{description}\n\n[source authority: {authority}/5]"
-
+    # put data in format of sqlite table
     return {
         "ticker": ticker, 
         "source_type": "newsapi", 
@@ -83,6 +86,7 @@ def to_mention(article:dict, ticker:str, fetched_at:str) -> dict | None:
     }
 
 def run(ticker: str, company_name:str | None = None):
+    # set in .env
     api_key = os.getenv("NEWSAPI_KEY")
     if not api_key:
         print("[newsapi] error: NEWSAPI_KEY not assigned in .env")
@@ -122,8 +126,8 @@ if __name__ == "__main__":
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     # since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
     from company_name_manager import get_top_50
-    
+    # get top 50 companies from company_name_manager.py
     tickers = get_top_50()
-    
+    # run script for each company
     for ticker in tickers:
         run(ticker)

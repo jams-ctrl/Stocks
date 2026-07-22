@@ -26,30 +26,37 @@ def index():
 # if ticker is entered as search
 @app.route("/company_given")
 def summary():
+    # get top 50 tickers
     tickers = get_top_50()
     company = request.args.get("company", "").strip().lower()
+    # if inputted company is already a ticker
     if company.upper() in tickers:
         if (get_other_names(company.upper()) is not None):
             ticker = company.upper()
         else:
             return jsonify ({"error": "company not in database"}), 400
     else:
+        # use company_name_manager to convert to other names
         result = get_other_names(company.capitalize())
         if result is None:
             return jsonify({"error": "company not in database"}), 400
+        # ticker will always be in second element of tuple
         i, ticker, j = result
         if ticker is None:
             return jsonify({"error": "company not in database"}), 400
 
     with get_conn() as conn:
+        # in bottom of storage.py; returns a dict for easy access of each key aspect (title, url, etc.)
         edgar = edgar_summary(conn, ticker)
         stocktwits = stocktwits_summary(conn, ticker)
         news = news_summary(conn, ticker)
+        # uses ai model to predict
         prediction, probability = predict_latest(ticker)
         bot = {"prediction": prediction, "probability": probability}
-
+    # sends to stockSearcher html template
     return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "bot": bot})
 
 if __name__ == "__main__":
     init_db()
+    #runs app and sets to port 8080
     app.run(debug=True, port=8080)

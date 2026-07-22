@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS mentions (
 CREATE INDEX IF NOT EXISTS idx_mentions_ticker_time
     ON mentions(ticker, published_at);
 """
-# above: create "shortcut" that sqlite can jump to to quickly navigate table and yield output
+# above: create index -> "shortcut" that sqlite can jump to to quickly navigate table and yield output
 
 @contextmanager
 # open connection with database using context manager
@@ -89,16 +89,19 @@ def daily_mention_counts(conn, ticker: str, days:int) -> list[int]:
     ).fetchall()
     return [r["c"] for r in rows]
 
-# key links to webpage, gets most important articles to show on website
+# key links to webpage, gets most important articles to show on website -> sent to app.py
 def edgar_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    # ordered by published date
     top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY published_at DESC LIMIT ?", (ticker, "edgar", limit)).fetchall()
     return [dict(r) for r in top]
 
 def stocktwits_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    # ordered by follower count
     top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "stocktwits", limit)).fetchall()
     return [dict(r) for r in top]
 
 def news_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    # ordered by follow_count(authority rating)
     top = conn.execute("SELECT title, text, url, published_at, source_name FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "newsapi", limit)).fetchall()
     return [dict(r) for r in top]
 

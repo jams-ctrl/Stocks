@@ -90,6 +90,7 @@ def run(ticker: str):
     # modify database with ticker and fetched_at; scrapers should have filled in all other columns
     with get_conn() as conn:
         for m in all_mentions:
+            # setdefault for all columns in preparation for none
             m["ticker"] = ticker
             m["fetched_at"] = now
             m.setdefault("title", None)
@@ -102,7 +103,8 @@ def run(ticker: str):
                 inserted += 1
             else:
                 skipped += 1
-        
+
+        # log recent mentions
         recent_1h = count_recent_mentions(conn, ticker, hours=1)
         recent_24h = count_recent_mentions(conn, ticker, hours=24)
         baseline_counts = daily_mention_counts(conn, ticker, days=30)
@@ -120,7 +122,6 @@ def run(ticker: str):
 
     if z is not None and z >= 3:
         print(">>> VOLUME SPIKE DETECTED -- consider triggering Pipeline B <<<<")
-
     return z
 
 # compare 1 day's counts to average daily counts and the standard deviation to find zscore
@@ -139,7 +140,9 @@ if __name__ == "__main__":
     # parser = argparse.ArgumentParser(description="pipeline A: structured news/filing/social ingestion")
     # parser.add_argument("ticker", help="stock ticker symbol, e.g. TSLA")
     # args = parser.parse_args()
+    # get top 50 companies
     tickers = get_top_50()
+    # run for each company
     for ticker in tickers:
         run(ticker)
 

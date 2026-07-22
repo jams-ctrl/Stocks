@@ -5,7 +5,7 @@ import io
 
 # get the ticker symbols, the full names, and the common names of all the companies and put them in a list for easy conversion
 def get_sp500_lists():
-    # go to wikipedia apge
+    # go to wikipedia page
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
     req = urllib.request.Request(
         url, 
@@ -35,7 +35,6 @@ def get_sp500_lists():
         clean = re.sub(r',\s*$', '', clean).strip()
         common_names.append(clean)
 
-
     return tickers, full_names, common_names
 
 #execute function to get 3 parallel lists
@@ -48,6 +47,7 @@ full_name_lookup = {n.lower(): i for i, n in enumerate(full_names)}
 common_name_lookup = {n.lower(): i for i, n in enumerate(common_names)}
 
 def get_other_names(name):
+    # given a name, assigns it a type and returns the 2 other matching types
     key = name.strip().lower()
 
     if key in ticker_lookup:

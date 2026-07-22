@@ -33,7 +33,7 @@ def get_stocktwits_mentions(ticker: str, company_name=None):
 
         # pulls out object so can be accessed easily
         user = msg.get("user", {})
-        # prepare for sqlite database
+        # put data in format of sqlite table
         results.append(
             {
                 # stop duplicates

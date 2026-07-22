@@ -17,7 +17,7 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
     results = []
     # makes seperate API call per form
     for form in forms:
-        # use f-string to prevent injection attacks - filter keywords in forms
+        # filter keywords in forms
         params = {
             "q": f"{company_name}",
             "forms": form, 
@@ -43,7 +43,7 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
             cik = (src.get("ciks") or None)[0]
             filed_at = src.get("file_date")
             filing_url = _build_filing_url(cik, accession_no)
-
+            # put data in format of sqlite table
             results.append(
                 {
                     # stop duplicates
