@@ -7,7 +7,7 @@ import joblib
 import os
 
 def build_features(df):
-    # exactlay matches the feature method used during training
+    # exactly matches the feature method used during training
     # load csv file into dataframe
     df = df.sort_values("date").reset_index(drop=True)
 
@@ -55,9 +55,10 @@ def predict_latest(ticker):
     ]
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
+    # CHANGE path if desired path to csv files changes
     csv_path = os.path.join(script_dir, "..", "stock_data", f"{ticker}_5yr_data.csv")
 
-    # load price data current for this ticker - CHANGE IF CHANGE NAMES OF CSV FILES
+    # load price data current for this ticker 
     df = pd.read_csv(csv_path)
     df["date"] = pd.to_datetime(df["date"])
 

@@ -5,36 +5,24 @@ import pandas as pd
 import os
 from pathlib import Path
 import sys
-# go up one parent folder
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
-# since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
-from company_name_manager import get_top_50
-# go down 1 parent folder
-sys.path.remove(parent_dir)
 
-# top 50 tech companies as seen in company_name_manager
-tickers = get_top_50()
-
-for ticker in tickers:
-    # load csv file into dataframe
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # CHANGE csv path if path to csv files changes
-    csv_path = os.path.join(script_dir, "..", "stock_data", f"{ticker}_5yr_data.csv")
-
-    # load price data current for this ticker 
-    df = pd.read_csv(csv_path)
-
+def modify_data(path):
+    df = pd.read_csv(path)
     # clean data of csv file and set prices to floats
     prices = ["close","open", "high", "low"]
     for price in prices:
-        df[price] = df[price].replace(r"[/$,]","",regex=True).astype(float)
+        try:
+            df[price] = df[price].replace(r"[/$,]","",regex=True).astype(float)
+        except ValueError:
+            continue
 
     # convert volumes to int
     df["volume"] = df["volume"].replace(r"[/,]","",regex=True).astype(int)
 
-    # handle both %Y-%m-%d and %m/%d/%Y - format is set at end
-    df["date"] = pd.to_datetime(df["date"], format="mixed")
+    # # handle both %Y-%m-%d and %m/%d/%Y - format is set at end
+    # df["date"] = pd.to_datetime(df["date"], format="mixed")
+    # drop any duplicate dates
+    df = df.drop_duplicates(subset="date")
     # sort dates from oldest -> newest
     df = df.sort_values("date").reset_index(drop=True)
 
@@ -69,7 +57,7 @@ for ticker in tickers:
     df["volume_vs_avg20"] = df["volume"] / df["volume"].rolling(window=20).mean()
 
     # drop any rows that have NA 
-    df = df.dropna().reset_index(drop=True)
+    #df = df.dropna().reset_index(drop=True)
 
     # compare each days close to next days close to label the correct move to make - used for AI to train
     df["next_close"] = df["close"].shift(-1)
@@ -81,5 +69,5 @@ for ticker in tickers:
 
     #----------FINSHED EDITING CSV(DATAFRAME)
 
-    # convert back to csv and commit edits to file - specify date format
-    df.to_csv(csv_path, index=False,date_format="%Y-%m-%d")
+    # return dataframe
+    return df
