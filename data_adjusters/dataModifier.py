@@ -6,8 +6,8 @@ import os
 from pathlib import Path
 import sys
 
-def modify_data(path):
-    df = pd.read_csv(path)
+def modify_data(df,path=None):
+    df = df if path==None else pd.read_csv(path) 
     # clean data of csv file and set prices to floats
     prices = ["close","open", "high", "low"]
     for price in prices:
@@ -19,12 +19,12 @@ def modify_data(path):
     # convert volumes to int
     df["volume"] = df["volume"].replace(r"[/,]","",regex=True).astype(int)
 
-    # # handle both %Y-%m-%d and %m/%d/%Y - format is set at end
-    # df["date"] = pd.to_datetime(df["date"], format="mixed")
+    df["date"] = pd.to_datetime(df["date"], format="mixed")
+
     # drop any duplicate dates
-    df = df.drop_duplicates(subset="date")
+    #df = df.drop_duplicates(subset="date")
     # sort dates from oldest -> newest
-    df = df.sort_values("date").reset_index(drop=True)
+    #df = df.sort_values("date").reset_index(drop=True)
 
     # ----------BEGIN EDITING CSV (DATAFRAME)
     # calculate returns
@@ -68,6 +68,5 @@ def modify_data(path):
     df = df.drop(columns=["next_close"])
 
     #----------FINSHED EDITING CSV(DATAFRAME)
-
     # return dataframe
     return df
