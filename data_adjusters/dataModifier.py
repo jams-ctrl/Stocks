@@ -21,6 +21,7 @@ def modify_data(df,path=None):
 
     df["date"] = pd.to_datetime(df["date"], format="mixed")
 
+    # commented out - doesnt work and I dont know how to fix it
     # drop any duplicate dates
     #df = df.drop_duplicates(subset="date")
     # sort dates from oldest -> newest

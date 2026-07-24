@@ -15,13 +15,14 @@ sys.path.remove(parent_dir)
 
 # get date of last upload
 df_date = pd.read_csv('dates.csv', header=None)
-past_date = df_date[0].tolist()[1]
+past_date = df_date[0].tolist()[len(df_date)-1]
+print(past_date)
 # get present day 
 present = datetime.now().strftime('%Y-%m-%d') 
 present_df = pd.DataFrame([[present]])
 present_df.to_csv('dates.csv', mode='a', index=False)
 
-ticker = "ADI"
+ticker = "AAPL"
 # for ticker in tickers:
 # download all the stocks past date of last upload
 df_base = download_data(past_date,present, ticker)
@@ -52,6 +53,6 @@ if os.path.getsize(csv_path) == 0:
     modified_data_frame.to_csv(csv_path, mode='a', index=False, float_format="%.4f")
 else:
     # if data already in csv
-   modified_data_frame.to_csv(csv_path, mode='a', index=False, float_format="%.4f", header=None)
+   modified_data_frame.to_csv(csv_path, mode='a', index=False, header=None)
 
     

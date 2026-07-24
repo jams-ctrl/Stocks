@@ -55,6 +55,7 @@ def run(ticker: str):
         print("[edgar] skipped (set EDGAR_USER_AGENT and pass --company to enable)")
 
 
+    # commented out due to reddit API restrictions, must get manual API approval and still waiting on application
     # #load hits from reddit
     # reddit_id = os.getenv("REDDIT_CLIENT_ID")
     # reddit_secret = os.getenv("REDDIT_CLIENT_SECRET")

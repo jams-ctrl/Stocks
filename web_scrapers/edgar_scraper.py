@@ -24,8 +24,8 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
             "dateRange": "custom",
             "startdt": _days_ago(days_back), 
             "enddt": _today(),
-
         }
+        
         resp = requests.get(EDGAR_FTS_URL, params=params, headers=headers, timeout=15)
         # handle error
         if resp.status_code != 200:
@@ -69,13 +69,16 @@ def _build_filing_url(cik, accession_no):
         return None
     return f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_no.replace('-', '')}"
 
-# date helpers to standardize dates into y-m-d
+# returns dates in correct y-m-d format
+# returns date certain days before present
 def _days_ago(n):
     return (datetime.now(timezone.utc) - timedelta(days=n)).strftime("%Y-%m-%d")
 
+# returns present date
 def _today():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
+# returns ONLY date, no time
 def _to_iso(date_str):
     if not date_str:
         return datetime.now(timezone.utc).isoformat()
