@@ -23,7 +23,7 @@ present_df = pd.DataFrame([[present]])
 # comment date line out for debugging
 #present_df.to_csv('dates.csv', mode='a', index=False)
 
-ticker = "AAPL"
+ticker = "ADBE"
 # for ticker in tickers:
 # download all the stocks past date of last upload
 df_base = download_data(past_date,present, ticker)
@@ -32,10 +32,13 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 # CHANGE csv path if path to csv files changes
 csv_path = os.path.join(script_dir, "..", "stock_data", f"{ticker}_5yr_data.csv")
 
-# takes the last 50 rows of the current csv and adds it to a dataframe - ERROR: IF CSV IS EMPTY WILL PRODUCE BUG
-df_cut = pd.read_csv(csv_path).tail(50).reset_index(drop=True)
-# adds "new" rows to dataframe
-df_cut = pd.concat([df_cut,df_base], ignore_index=True)
+try:
+    # takes the last 50 rows of the current csv and adds it to a dataframe - ERROR: IF CSV IS EMPTY WILL PRODUCE BUG
+    df_cut = pd.read_csv(csv_path).tail(50).reset_index(drop=True)
+    # adds "new" rows to dataframe
+    df_cut = pd.concat([df_cut,df_base], ignore_index=True)
+except:
+    df_cut = df_base
 # modifiy all the stocks for said company and append features 
 modified_data_frame = modify_data(df_cut)
 # drop last 50 dataFrame - keep only appended df_base rows - +1 because ghost date
@@ -51,10 +54,10 @@ with open(csv_path, "rb+") as f:
 # appends modified rows to csv
 if os.path.getsize(csv_path) == 0:
     # if completely new company with blank csv file
-    modified_data_frame.to_csv(csv_path, mode='a', index=False, float_format="%.4f")
-#else:
+    modified_data_frame.to_csv(csv_path, mode='w', index=False, float_format="%.4f")
+else:
     # if data already in csv
     # comment append line out for debugging
-   #modified_data_frame.to_csv(csv_path, mode='a', index=False, header=None)
+   modified_data_frame.to_csv(csv_path, mode='a', index=False, header=None)
 
     

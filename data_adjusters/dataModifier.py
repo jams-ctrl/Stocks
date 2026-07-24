@@ -53,14 +53,29 @@ def modify_data(df,path=None):
     # volatility w/ standard deviation
     df["volatility_10d"]= df["return_1d"].rolling(window=10).std()
 
+    # MACD - map trend momemtum and when it changes
+    # ema is exponential moving average - weighted average more affected by present or near-present price changes then by past
+    ema_12 = df["close"].ewm(span=12, adjust=False).mean()
+    ema_26 = df["close"].ewm(span=26, adjust=False).mean()
+    # draw a trendline of emas
+    macd = ema_12 - ema_26
+    # another trendline to compare macd against 
+    macd_signal = macd.ewm(span=9, adjust=False).mean()
+    df["macd_norm"] = macd/df["close"]
+    # historic trendline of macd variations over long period of time -> captures momentum accel/deaccel.
+    df["macd_hist_norm"] = (macd-macd_signal)/df["close"]
+
+    # bollinger band 
+    ma_20 = df["close"].rolling(window=20).mean()
+    std_20 = df["close"].rolling(window=20).std()
+    upper_band = ma_20 + 2 * std_20
+    lower_band = ma_20 - 2 * std_20
+    df["bb_position"] = (df["close"] - lower_band) / (upper_band - lower_band)
     # volume
     df["volume_change"] = df["volume"].pct_change()
     df["volume_vs_avg20"] = df["volume"] / df["volume"].rolling(window=20).mean()
 
-    # compare each days close to next days close to label the correct move to make - used for AI to train
-    #df["next_close"] = df["close"].shift(-1)
-
-    # tomorrow's return_1d, used as baseline to make "buy","hold", or "sell" label
+    # tomorrow's return_1d, used as baseline to make "buy","hold", or "sell" label - used for ai to train
     df["target_return"] = df["return_1d"].shift(-1)
 
     # k = 0.3 is sweet spot for hold/buy/sell ratios
@@ -69,12 +84,11 @@ def modify_data(df,path=None):
     vol_threshold = df["volatility_10d"] * k
     threshold = vol_threshold.clip(lower=min_floor)
 
+    # assign label to said day's stock data based on the stock's returns exceeding a current threshold
     df["label"] = "hold"
     df.loc[df["target_return"] > threshold, "label"] = "buy"
     df.loc[df["target_return"] < -threshold, "label"] = "sell"
 
-
-    #df["label"] = (df["next_close"] > df["close"]).map({True: "buy", False: "sell"})
     # drop last row since no "tomorrow"; label is unknown
     df = df.dropna(subset=["target_return"]).reset_index(drop=True)
     # drop "target_return" column
