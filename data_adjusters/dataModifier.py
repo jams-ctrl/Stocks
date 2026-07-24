@@ -23,9 +23,9 @@ def modify_data(df,path=None):
 
     # commented out - doesnt work and I dont know how to fix it
     # drop any duplicate dates
-    #df = df.drop_duplicates(subset="date")
+    df = df.drop_duplicates(subset="date")
     # sort dates from oldest -> newest
-    #df = df.sort_values("date").reset_index(drop=True)
+    df = df.sort_values("date").reset_index(drop=True)
 
     # ----------BEGIN EDITING CSV (DATAFRAME)
     # calculate returns
@@ -47,7 +47,7 @@ def modify_data(df,path=None):
     loss = -diff.clip(upper=0)
     avg_gain = gain.rolling(window=14).mean()
     avg_loss = loss.rolling(window=14).mean()
-    rs = avg_gain/avg_loss
+    rs = avg_gain/avg_loss.replace(0, 1e-10)
     df["rsi_14"] = 100 - (100 / (1+rs))
 
     # volatility w/ standard deviation
@@ -57,16 +57,31 @@ def modify_data(df,path=None):
     df["volume_change"] = df["volume"].pct_change()
     df["volume_vs_avg20"] = df["volume"] / df["volume"].rolling(window=20).mean()
 
-    # drop any rows that have NA 
-    #df = df.dropna().reset_index(drop=True)
-
     # compare each days close to next days close to label the correct move to make - used for AI to train
-    df["next_close"] = df["close"].shift(-1)
-    df["label"] = (df["next_close"] > df["close"]).map({True: "buy", False: "sell"})
+    #df["next_close"] = df["close"].shift(-1)
+
+    # tomorrow's return_1d, used as baseline to make "buy","hold", or "sell" label
+    df["target_return"] = df["return_1d"].shift(-1)
+
+    # k = 0.3 is sweet spot for hold/buy/sell ratios
+    k = 0.3
+    min_floor = 0.0005
+    vol_threshold = df["volatility_10d"] * k
+    threshold = vol_threshold.clip(lower=min_floor)
+
+    df["label"] = "hold"
+    df.loc[df["target_return"] > threshold, "label"] = "buy"
+    df.loc[df["target_return"] < -threshold, "label"] = "sell"
+
+
+    #df["label"] = (df["next_close"] > df["close"]).map({True: "buy", False: "sell"})
     # drop last row since no "tomorrow"; label is unknown
-    df = df.dropna(subset=["next_close"]).reset_index(drop=True)
-    # drop "next_close" column
-    df = df.drop(columns=["next_close"])
+    df = df.dropna(subset=["target_return"]).reset_index(drop=True)
+    # drop "target_return" column
+    df = df.drop(columns=["target_return"])
+
+    # drop any rows that have NA 
+    df = df.dropna().reset_index(drop=True)
 
     #----------FINSHED EDITING CSV(DATAFRAME)
     # return dataframe
