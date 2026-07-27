@@ -12,7 +12,7 @@
         </form>
         <div class="data SOI">
             <h3 class="data-title"> Dev Notes </h3>
-            <p class="data-text" id="SOI"> Hey Victoria, thanks for checking this out, hope you like it! The current available stocks are: <br> <br>
+            <p class="data-text" id="SOI"> Hey Approver, thanks for checking this out, hope you like it! The current available stocks are: <br> <br>
             "NVDA",   # NVIDIA Corporation <br>
             "AAPL",   # Apple Inc.<br>
             "MSFT",   # Microsoft Corporation<br>
@@ -100,19 +100,19 @@
                     }
                     let edgar;
                     if (data.edgar.length){
-                        edgar = data.edgar.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)}</p>`).join('');
+                        edgar = data.edgar.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to filing</a> </p>`).join('');
                     } else {
                         edgar = '<p class="data-text">No recent EDGAR filings.</p>';
                     }
                     let stocktwits;
                     if (data.stocktwits.length){
-                        stocktwits = data.stocktwits.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)}</p>`).join('');
+                        stocktwits = data.stocktwits.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to post</a> </p>`).join('');
                     } else {
                         stocktwits = '<p class="data-text">No recent StockTwits mentions.</p>';
                     }
                     let news;
                     if (data.news.length){
-                        news = data.news.map(item => `<p class="data-text"><strong>${item.source_name || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)}</p>`).join('');
+                        news = data.news.map(item => `<p class="data-text"><strong>${item.source_name || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to article</a> </p>`).join('');
                     } else {
                         news = '<p class="data-text">No recent newsAPI mentions.</p>';
                     }

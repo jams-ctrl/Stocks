@@ -122,7 +122,7 @@ def run(ticker: str):
     print(f"volume z-score vs 30-day daily baseline: {z:.2f}" if z is not None else "not enough history yet for a baseline")
 
     if z is not None and z >= 3:
-        print(">>> VOLUME SPIKE DETECTED -- consider triggering Pipeline B <<<<")
+        print("VOLUME SPIKE DETECTED -- consider looking into ticker")
     return z
 
 # compare 1 day's counts to average daily counts and the standard deviation to find zscore
@@ -132,6 +132,7 @@ def compute_volume_zscore(current_count: int, baseline_counts: list[int]):
         return None
     mean = statistics.mean(baseline_counts)
     stdev = statistics.pstdev(baseline_counts)
+    # safety to prevent erroring when dividing by 0
     if stdev == 0: 
         return None
     return (current_count-mean) / stdev

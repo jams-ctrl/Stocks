@@ -63,11 +63,30 @@ def get_edgar_filings(company_name:str, user_agent:str, forms=None, days_back: i
 
     return results
 
-def _build_filing_url(cik, accession_no):
-    # builds the full url to that page
-    if not cik or not accession_no:
+def _build_filing_url(cik, accession_no_raw):
+    if not cik or not accession_no_raw:
         return None
-    return f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_no.replace('-', '')}"
+
+    # clean CIK - must be string without leading zeros for SEC folder path
+    cik_clean = str(int(cik))
+    raw_str = str(accession_no_raw)
+
+    # separate accession number and document filename
+    if ":" in raw_str:
+        accession_no, filename = raw_str.split(":", 1)
+    else:
+        accession_no, filename = raw_str, None
+
+    # clean hyphens out of accession for folder name
+    accession_no_clean = accession_no.replace("-", "").strip()
+
+    if filename:
+        filename = filename.lstrip("/")
+        return f"https://www.sec.gov/Archives/edgar/data/{cik_clean}/{accession_no_clean}/{filename}"
+    else:
+        # fallback to standard full submission text document
+        accession_with_hyphens = accession_no.strip()
+        return f"https://www.sec.gov/Archives/edgar/data/{cik_clean}/{accession_no_clean}/{accession_with_hyphens}.txt"
 
 # returns dates in correct y-m-d format
 # returns date certain days before present

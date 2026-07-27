@@ -27,13 +27,44 @@ def get_sp500_lists():
 
     # generate common names by removing corporate jargon
     common_names = []
-    for name in full_names:
-        clean = re.sub(r',?\s+(Inc\.|Corp\.|Co\.|Ltd\.|plc|Corporation|Incorporated|& Co\.|Company|\.com,?\s*Inc\.)\s*$', '', name, flags=re.IGNORECASE)
-        # removes stock share classes (class a, b, c...)
-        clean = re.sub(r',?\s+(Class [A-Z])\s*$', '', clean, flags=re.IGNORECASE)
-        # removes hanging commas
+    import re
+
+    def clean_company_name(name):
+        clean = name.strip()
+        
+        # remove parenthesies
+        clean = re.sub(r'\s*\((?:Class\s+[A-Z]|The|[A-Z])\)\s*', ' ', clean, flags=re.IGNORECASE)
+        
+        # remove legal suffixes (with or without trailing period), possibly repeated
+        suffix_pattern = (
+            r',?\s+('
+            r'Inc\.?|Corp\.?|Co\.?|Ltd\.?|plc|Corporation|Incorporated|'
+            r'& Co\.?|Company|\.com,?\s*Inc\.?'
+            r')\s*$'
+        )
+        
+        # remove stacked suffixes (e.g X.corp.inc)
+        prev = None
+        while prev != clean:
+            prev = clean
+            clean = re.sub(suffix_pattern, '', clean, flags=re.IGNORECASE).strip()
+            clean = re.sub(r',?\s+Class\s+[A-Z]\s*$', '', clean, flags=re.IGNORECASE).strip()
+        
+        # handle leading and trailing "the"
+        clean = re.sub(r'^The\s+', '', clean, flags=re.IGNORECASE)
+        clean = re.sub(r',?\s*The\s*$', '', clean, flags=re.IGNORECASE)
+
+        # remove jargon like "technologies"
+        clean = re.sub("technologies",'',clean,flags=re.IGNORECASE)
+        
+        # collapse double spaces and trailing commas/whitespace
+        clean = re.sub(r'\s{2,}', ' ', clean)
         clean = re.sub(r',\s*$', '', clean).strip()
-        common_names.append(clean)
+        
+        return clean
+
+    common_names = [clean_company_name(name) for name in full_names]
+    #print(common_names)
 
     return tickers, full_names, common_names
 
@@ -65,8 +96,8 @@ def get_other_names(name):
 #print to debug
 # print(f"Total elements loaded: {len(tickers)}")
 # print("Tickers array sample: ", tickers[:5])
-# print("Full names array sample: ", full_names[:5])
-# print("Common names array sample:", common_names[:5])
+#print("Full names array sample: ", full_names)
+#print("Common names array sample:", common_names)
 
 def get_top_50():
     # top 50 tech companies

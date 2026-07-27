@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow import keras
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils.class_weight import compute_class_weight
+from sklearn.metrics import classification_report
 import joblib
 import os
 import sys
@@ -15,7 +16,7 @@ from company_name_manager import get_top_50
 
 # get top 50 companies
 #tickers = get_top_50()
-ticker = "ADBE"
+ticker = "AAPL"
 # cycle through each company 
 # no loop for now for debugging
 #for ticker in tickers:
@@ -25,9 +26,10 @@ csv_path = os.path.join(script_dir, "..", "stock_data", f"{ticker}_5yr_data.csv"
 
 df = pd.read_csv(csv_path)
 
-# define stock features 
-feature_cols = ["return_1d","return_5d","return_10d","price_vs_ma10","price_vs_ma50","rsi_14","volatility_10d","volume_change","volume_vs_avg20","macd_norm","macd_hist_norm","bb_position"]
+# define stock features - remove if want to limit features
+feature_cols = ["return_1d","return_5d","price_vs_ma10","price_vs_ma50","rsi_14","volume_change","volume_vs_avg20","macd_hist_norm","bb_position"]
 # extra cols: ,"macd_norm","macd_hist_norm","bb_position"
+# removed: ,"return_10d" ,"macd_norm","volatility_10d"
 
 X = df[feature_cols].values
 
@@ -56,12 +58,13 @@ class_weight_dict = {i: w for i, w, in zip(classes, weights)}
 
 
 
-# build neural network
+# build neural network -> legacy model: 16, 8, 3
 model = keras.Sequential([
     # input layer
     keras.layers.Input(shape=(X_train_scaled.shape[1],)),
     keras.layers.Dense(16, activation="relu"),
-    keras.layers.Dropout(0.2),
+    # any lower and model overfits immediately
+    #keras.layers.Dropout(0.5),
     keras.layers.Dense(8, activation="relu"),
     keras.layers.Dense(4, activation="relu"),
     # output layer of 3
@@ -69,7 +72,8 @@ model = keras.Sequential([
 ])
 
 model.compile(optimizer="adam",loss="sparse_categorical_crossentropy",metrics=["accuracy"])
-
+# make model stop once overfitting begins to occur
+early_stop = keras.callbacks.EarlyStopping(patience=5,restore_best_weights=True)
 # train model
 trained = model.fit(
     X_train_scaled, Y_train, 
@@ -78,6 +82,7 @@ trained = model.fit(
     epochs=50,
     batch_size=32,
     verbose=1,
+    callbacks=[early_stop]
 )
 
 # evaluate on test set
@@ -89,9 +94,54 @@ values, counts = np.unique(Y_test, return_counts=True)
 baseline_acc = counts.max()/counts.sum()
 print(f"Baseline(always predict majority class): {baseline_acc:.4f}")
 
-# commented out for model debugging
-# # save model to file located in company-models folder
-# model.save(f"company_models.{ticker}_long_term_model.keras")
+# ============DEBUG -> IMPROVE MODEL ACCURACY============
 
-# # save scalar to preserve mean and stdev used during training
-# joblib.dump(scaler, (f"company_models.{ticker}_model.scaler.pk1"))
+# ============generate classification report on labels to see model accuracy
+#preds = np.argmax(model.predict(X_test_scaled), axis=1)
+#print(classification_report(Y_test, preds, target_names=["sell", "hold", "buy"]))
+
+# ============model check: correlation of new features with target -> should be 0.1 or higher to actually have correlation; anything under 0.02 is just noise
+# anticipate a more forward return - model can now look 5 days into the future
+df["target_return_10d"] = df["return_10d"].shift(-10)
+print(df[feature_cols].corrwith(pd.Series(Y)))
+# debug to show labels
+#print(df["label"].value_counts(normalize=True))
+# look at accuracy over ephochs & see if model is actually learning something
+# print(trained.history["accuracy"])
+# print(trained.history["val_accuracy"])
+# ============with all features 
+# Loss: 1.0758 Accuracy: 0.3952
+# Baseline(always predict majority class): 0.3901
+# return_1d         -0.005673
+# return_5d          0.006773
+# return_10d         0.002962
+# price_vs_ma10      0.005756
+# price_vs_ma50     -0.009695
+# rsi_14             0.011115
+# volatility_10d     0.010402
+# volume_change     -0.001589
+# volume_vs_avg20   -0.020897
+# macd_norm         -0.012288
+# macd_hist_norm     0.012356
+# bb_position        0.024191
+# dtype: float64
+# ============with less features
+# Loss: 1.0762 Accuracy: 0.3962
+# Baseline(always predict majority class): 0.3901
+# return_1d         -0.005673
+# return_5d          0.006773
+# price_vs_ma10      0.005756
+# price_vs_ma50     -0.009695
+# rsi_14             0.011115
+# volume_change     -0.001589
+# volume_vs_avg20   -0.020897
+# macd_hist_norm     0.012356
+# bb_position        0.024191
+# dtype: float64
+
+# ===========SAVE MODEL===========
+# save model to file located in company-models folder
+model.save(f"company_models.{ticker}_long_term_model.keras")
+
+# save scalar to preserve mean and stdev used during training
+joblib.dump(scaler, (f"company_models.{ticker}_model.scaler.pk1"))

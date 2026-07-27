@@ -1,13 +1,11 @@
-Tomorrow is big day! (Today is Thu, Jul 23)
+Beach Tomorrow!(Sat Jul 25)
 Research:
-Stock features (Volatlity, Return, etc.)
-Edit data_modifier as needed + round numbers so file is easier to read?
 How to make a reinforcement-learning AI with tensorflow (or something else)
 How to use cron + implement into whole project
 
 Look At:
 Edgar, StockTwits, NewsAPI, 
-See if scrapers can improve in efficientcy and increase authenticity
+See if scrapers can improve in efficiency and increase authenticity
 
 Plan:
 Blueprint for new HTML page 
@@ -15,9 +13,6 @@ Getting more sources (yfinance, twitter, instagram) for news scrapers
 Add google trends/ searches?
 
 Consider adding stock features:
-MACD
-Bollinger Band position
-ATR
 Cross-company rank features
 
 

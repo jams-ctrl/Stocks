@@ -34,7 +34,7 @@ def summary():
         if (get_other_names(company.upper()) is not None):
             ticker = company.upper()
         else:
-            return jsonify ({"error": "company not in database"}), 400
+            return jsonify ({"error": "company ticker not in database"}), 400
     else:
         # use company_name_manager to convert to other names
         result = get_other_names(company.capitalize())
