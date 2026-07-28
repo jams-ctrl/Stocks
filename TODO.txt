@@ -1,4 +1,9 @@
-Beach Tomorrow!(Sat Jul 25)
+Deploy & Ship today!!(Tues Jul 28)
+Do:
+Redownload data on 10 years of stock data
+Remake model
+Hope it works (please)
+
 Research:
 How to make a reinforcement-learning AI with tensorflow (or something else)
 How to use cron + implement into whole project
@@ -11,9 +16,6 @@ Plan:
 Blueprint for new HTML page 
 Getting more sources (yfinance, twitter, instagram) for news scrapers 
 Add google trends/ searches?
-
-Consider adding stock features:
-Cross-company rank features
 
 
 

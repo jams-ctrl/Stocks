@@ -29,7 +29,8 @@ def build_features(df):
     loss = -diff.clip(upper=0)
     avg_gain = gain.rolling(window=14).mean()
     avg_loss = loss.rolling(window=14).mean()
-    rs = avg_gain/avg_loss
+    # do not divide by 0
+    rs = avg_gain/avg_loss.replace(0, 1e-10)
     df["rsi_14"] = 100 - (100 / (1+rs))
 
     # volatility
@@ -38,6 +39,25 @@ def build_features(df):
     # volume
     df["volume_change"] = df["volume"].pct_change()
     df["volume_vs_avg20"] = df["volume"] / df["volume"].rolling(window=20).mean()
+
+    # MACD - map trend momemtum and when it changes
+    # ema is exponential moving average - weighted average more affected by present or near-present price changes then by past
+    ema_12 = df["close"].ewm(span=12, adjust=False).mean()
+    ema_26 = df["close"].ewm(span=26, adjust=False).mean()
+    # draw a trendline of emas
+    macd = ema_12 - ema_26
+    # another trendline to compare macd against 
+    macd_signal = macd.ewm(span=9, adjust=False).mean()
+    df["macd_norm"] = macd/df["close"]
+    # historic trendline of macd variations over long period of time -> captures momentum accel/deaccel.
+    df["macd_hist_norm"] = (macd-macd_signal)/df["close"]
+
+    # bollinger band 
+    ma_20 = df["close"].rolling(window=20).mean()
+    std_20 = df["close"].rolling(window=20).std()
+    upper_band = ma_20 + 2 * std_20
+    lower_band = ma_20 - 2 * std_20
+    df["bb_position"] = (df["close"] - lower_band) / (upper_band - lower_band)
 
     return df
 
@@ -52,6 +72,7 @@ def predict_latest(ticker):
         "price_vs_ma10", "price_vs_ma50",
         "rsi_14", "volatility_10d",
         "volume_change", "volume_vs_avg20",
+        "macd_norm", "macd_hist_norm", "bb_position",
     ]
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -82,12 +103,20 @@ def predict_latest(ticker):
     # scale using training stats - do NOT re-fit
     latest_scaled = scaler.transform(latest_row)
 
-    # predit
-    # can consider using model.predict but is storage/memory-heavy
-    probability = float(model(latest_scaled, verbose=0)[0][0])
-    prediction = "BUY" if probability > 0.5 else "SELL"
+    # precdit
+    # using model.predict but is storage/memory-heavy
+    probabilities = model.predict(latest_scaled, verbose=0)[0]
+    label_map={0: "SELL", 1: "HOLD", 2: "BUY"}
+    # returns the class with the highest probability
+    predicted_class = int(np.argmax(probabilities))
+    prediction = label_map[predicted_class]
+    confidence = float(probabilities[predicted_class])
 
-    return prediction, probability
+    return prediction, confidence, {
+        "sell": float(probabilities[0]),
+        "hold": float(probabilities[1]),
+        "buy": float(probabilities[2]),
+    }
 
 if __name__ == "__main__":
     ticker = input("Enter a ticker symbol: ").strip().upper()

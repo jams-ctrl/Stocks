@@ -27,7 +27,6 @@ def get_sp500_lists():
 
     # generate common names by removing corporate jargon
     common_names = []
-    import re
 
     def clean_company_name(name):
         clean = name.strip()

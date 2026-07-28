@@ -71,6 +71,7 @@ def modify_data(df,path=None):
     upper_band = ma_20 + 2 * std_20
     lower_band = ma_20 - 2 * std_20
     df["bb_position"] = (df["close"] - lower_band) / (upper_band - lower_band)
+    
     # volume
     df["volume_change"] = df["volume"].pct_change()
     df["volume_vs_avg20"] = df["volume"] / df["volume"].rolling(window=20).mean()

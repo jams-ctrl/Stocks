@@ -1,6 +1,13 @@
 # with one command, designed to run once per day to update .csv files of each company with new stock prices
-from dataModifier import modify_data
-from stockDownloader import download_data
+# for vercel must add init.py to make folder its own package so importing changes a bit
+try :
+    from .dataModifier import modify_data
+except ImportError:
+    from dataModifier import modify_data
+try :
+    from .stockDownloader import download_data
+except ImportError:
+    from stockDownloader import download_data
 import os
 import sys
 import pandas as pd
