@@ -3,6 +3,7 @@ Do:
 Redownload data on 10 years of stock data
 Remake model
 Hope it works (please)
+Add desc for model
 
 Research:
 How to make a reinforcement-learning AI with tensorflow (or something else)

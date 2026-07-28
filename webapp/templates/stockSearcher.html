@@ -20,7 +20,6 @@
             "GOOG",   # Alphabet Inc. (Class C)<br>
             "AMZN",   # Amazon.com Inc.<br>
             "META",   # Meta Platforms Inc.<br>
-            "AVGO",   # Broadcom Inc.<br>
             "TSLA",   # Tesla Inc.<br>
             "ASML",   # ASML Holding N.V.<br>
             "ADBE",   # Adobe Inc.<br>
@@ -140,8 +139,9 @@
                     
                     stockBot.innerHTML = 
                         `<p class="data-title" id="ticker">${data.ticker}</p>` + bot +
-                        `<p class="data-text"> Uses a combination of given stock features such as date, volume, close, and calculated ones like returns, moving averages, volatility, volume changes to form a csv of the stock dating back 5 years.
-                            Then uses a sequential tensorflow model to train the model given labels "buy", "sell", and "hold" over 50 iterations and saves a model per company</p>`
+                        `<p class="data-text"> The confidence rating is how confident the model is on the stock's future movement/trend. Any chance above 40% is considered "high", and any chance below 30% is considered "low". <br>
+                            The model uses a combination of given stock features such as dates, volumes, and closing prices, and calculated features like returns, moving averages, volatilities, and volume changes to form a csv of the stock dating back 5 years. <br>
+                            Then, a sequential tensorflow model with 3 dense layers is used to train the model given labels "buy", "sell", and "hold" over 50 iterations and saves a unique model to each company </p>`
 
                     chatBox.innerHTML = `<p class="data-text">Showing results for <strong>${data.ticker}</strong>.</p>`;
                 }
