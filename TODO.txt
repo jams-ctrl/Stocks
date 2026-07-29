@@ -1,8 +1,6 @@
 Deploy & Ship today!!(Tues Jul 28)
 Do:
-Redownload data on 10 years of stock data
-Remake model
-Hope it works (please)
+Make Readme
 Add desc for model
 
 Research:
@@ -17,6 +15,9 @@ Plan:
 Blueprint for new HTML page 
 Getting more sources (yfinance, twitter, instagram) for news scrapers 
 Add google trends/ searches?
+
+Do for part 2:
+Make model predict "hold" more - update k-value or rm weight dict
 
 
 
