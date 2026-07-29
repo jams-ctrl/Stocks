@@ -42,7 +42,10 @@ Frontend: HTML, CSS, Javascript <br>
 Backend: Flask, Python <br>
 Database & Data-handling: Python, Sqlite3 <br>
 
-Hope you enjoy interacting with my project!
+AI use: 
+Asked Claude ~20 questions concerning debugging and how to write complex functions like compute_z_score, but all of the code is handwritten. 
+
+Hope you enjoy interacting with my project! Please do not hesitate to contact me!
 
 Screenshots:
 <img width="1470" height="796" alt="Screenshot 2026-07-28 at 3 53 50 PM" src="https://github.com/user-attachments/assets/ac37363a-f2ca-44f1-8a05-0860062b6a6d" />
