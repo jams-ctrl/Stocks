@@ -43,6 +43,3 @@ Backend: Flask, Python <br>
 Database & Data-handling: Python, Sqlite3 <br>
 
 Screenshots:
-<img width="1470" height="796" alt="Screenshot 2026-07-28 at 3 53 50 PM" src="https://github.com/user-attachments/assets/ac37363a-f2ca-44f1-8a05-0860062b6a6d" />
-<img width="1470" height="799" alt="Screenshot 2026-07-28 at 3 52 39 PM" src="https://github.com/user-attachments/assets/ce718003-a015-4efa-b17f-6d0131388ba7" />
-
