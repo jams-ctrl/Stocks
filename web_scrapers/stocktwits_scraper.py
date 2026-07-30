@@ -50,8 +50,8 @@ def get_stocktwits_mentions(ticker: str, company_name=None):
                 "raw_json": str({
                     "sentiment": sentiment,
                     "is_official": user.get("official", False),
-                "follower_count": user.get("followers")
                 }),
+                "follower_count": user.get("followers"),
             }
         )
     return results
