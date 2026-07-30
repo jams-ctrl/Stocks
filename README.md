@@ -1,5 +1,5 @@
 # Stocks
-Hello! My name is James, and this is my rendition of a stock bot made with the goal of attending Horizons Polaris!<br>
+Hello! My name is James, and this is my rendition of a stock bot made with the goal of attending Horizons Polaris! I am totally new to hack club, so forgive me if there are some issues with my github - I had to switch folders midway through because I did not know how to merge :(.<br>
 
 Motivation:<br>
 At the start of summer, I made the hard decision to refuse my full-time job offer as a summer camp counsellor in favour of a learning-centered summer. My summer is now very full with sports, math, and friends, but coding takes up most of my time, and I have devoted all that time to this project.
