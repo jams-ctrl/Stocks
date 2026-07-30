@@ -10,3 +10,4 @@ html5lib
 joblib
 flask
 yfinance
+finnhub-python
