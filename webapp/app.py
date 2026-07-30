@@ -44,6 +44,9 @@ def summary():
         i, ticker, j = result
         if ticker is None:
             return jsonify({"error": "company not in database"}), 400
+        if ticker not in tickers:
+            return jsonify({"error": "company not in database"}), 400
+
 
     with get_conn() as conn:
         # in bottom of storage.py; returns a dict for easy access of each key aspect (title, url, etc.)

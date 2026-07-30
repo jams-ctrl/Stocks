@@ -1,6 +1,8 @@
 # Stocks
 Hello! My name is James, and this is my rendition of a stock bot made with the goal of attending Horizons Polaris! I am totally new to hack club, so forgive me if there are some issues with my github - I had to switch folders midway through because I did not know how to merge :(.<br>
 
+Message for Approver: After correcting the issue I have re-shipped the project with 2 new files, finnhub_scraper and stocktwitsv2_scraper, please just ignore these as they are made in prepartion for part 2 of my project, and so i am still looking to get the original 28.5 hrs. Thanks!
+
 Motivation:<br>
 At the start of summer, I made the hard decision to refuse my full-time job offer as a summer camp counsellor in favour of a learning-centered summer. My summer is now very full with sports, math, and friends, but coding takes up most of my time, and I have devoted all that time to this project.
 I have always been interested in stocks, a seemingly get-rich-quick method, and with the AI-boom, I wondered if I could use neural networks and their self-learning aspect to be trained on stock data.
