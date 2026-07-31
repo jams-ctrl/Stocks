@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jamsBot</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <button class="nav-arrow left" id="to-search" title="Go to Stock Searcher">&#8592;</button>
+        <h1 class="page-title" id="newsPanel"> The <span class="brand">News Panel</span></h1>
+        <div class="box-grid">
+            <div class="box-item">
+                <h3 class="data-title"> Yahoo</h3>
+                <p class="data-text" id="abs"> <br>News will go here</p>
+            </div>
+            <div class="box-item">Stocktwits</div>
+            <div class="box-item">CNBC</div>
+            <div class="box-item">24/7 Wall Street</div>
+            <div class="box-item">TBD</div>
+            <div class="box-item">TBD</div>
+            <div class="box-item">Edgar</div>
+            <div class="box-item">Insider Trades</div>
+        </div>
+        <script>
+            document.getElementById('to-search').addEventListener('click', function(){
+                window.location.href = "{{ url_for('stockSearcher') }}";
+            });
+
+            document.querySelectorAll('.box-item').forEach(function(box){
+                box.addEventListener('click', function(){
+                    let isExpanded = box.classList.contains('expanded');
+
+                    // collapse and other box that is expanded
+                    document.querySelectorAll('.box-item.expanded').forEach(function(other){
+                        other.classList.remove('expanded');
+                    });
+                    // if this box is not expanded, expand it
+                    if (!isExpanded){
+                        box.classList.add('expanded')
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

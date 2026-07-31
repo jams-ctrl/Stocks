@@ -55,9 +55,22 @@ def summary():
         news = news_summary(conn, ticker)
         # uses ai model to predict
         prediction, confidence,probabilities = predict_latest(ticker)
-        bot = {"prediction": prediction, "confidence": confidence,"probabilites": probabilities }
+        bot = {"prediction": prediction, "confidence": confidence,"probabilities": probabilities }
     # sends to stockSearcher html template
     return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "bot": bot})
+
+@app.route("/stockSearcher.html")
+def stockSearcher():
+    return render_template("stockSearcher.html")
+
+@app.route("/newsPanel.html")
+def newsPanel():
+    return render_template("newsPanel.html")
+
+@app.route("/AIPanel.html")
+def AIPanel():
+    return render_template("AIPanel.html")
+
 
 if __name__ == "__main__":
     init_db()

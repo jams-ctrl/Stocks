@@ -57,7 +57,7 @@
         </div>
         <div class="data jamsAI">
             <h3 class="data-title"> jamsAI</h3>
-            <p class="data-text" id="jamsAI"> The output of the stock-data bot will go here</p>
+            <p class="data-text" id="jamsAI">The output of the stock-data bot will go here</p>
         </div>
         <div class="data News">
             <h3 class="data-title"> News</h3>
@@ -71,6 +71,8 @@
             <h3 class="data-title"> Terminal</h3>
             <p class="data-text" id="chat"> Outputs will go here...</p>
         </div>
+        <button class="nav-arrow right" id="to-news" title="Go to News Panel">&#8594;</button>
+        <button class="nav-arrow left" id="to-AI" title="Go to AI Panel">&#8592;</button>
         <script>
             document.getElementById('search-form').addEventListener('submit', async function(e){
                 e.preventDefault()
@@ -141,6 +143,13 @@
                     chatBox.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;
                 }
             })
+            document.getElementById('to-news').addEventListener("click", function(){
+                window.location.href = "{{ url_for('newsPanel') }}"
+            })
+            document.getElementById('to-AI').addEventListener("click", function(){
+                window.location.href = "{{ url_for('AIPanel') }}"
+            })
+
         </script>
     </body>
 </html>

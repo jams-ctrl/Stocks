@@ -35,6 +35,10 @@ body::before {
     bottom: 25vh;
 }
 
+#newsPanel{
+    bottom:5vh
+}
+
 .page-title .brand {
     font-family: "Dancing Script", cursive;
     font-size: 70px;
@@ -178,4 +182,103 @@ body::before {
     font-size: 25px;
     font-weight: 1000;
     color: #ffffff;
+}
+
+.box-grid{
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 20px;
+    width: 90%;
+    height: 60%;
+}
+
+.box-twin{
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1,1fr);
+    gap: 20px;
+    width: 90%;
+    height: 60%;
+}
+
+.box-item{
+    position: relative;
+    z-index:1;
+    overflow: hidden;
+    background: #5571ff;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 20px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    transition: 0.5s;
+}
+
+.box-item:hover{
+    background: #ff7070;
+}
+
+.box-item.expanded{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: #5571ff;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    overflow-y: auto;
+    transition: None;
+}
+
+
+.nav-arrow{
+    position: fixed;
+    top: 50%;
+    transform:translateY(-50%);
+    z-index: 1;
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+    background: #5571ff;
+    color: #ffffff;
+    border: none;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    white-space: nowrap;
+}
+
+.nav-arrow:hover{
+    background: #ff7070;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow.left{
+    left: 0vh;
+}
+
+.nav-arrow.right{
+    right: 0vh;
+}
+
+#abs{
+    top: var(--padding);
+    position:absolute;
 }

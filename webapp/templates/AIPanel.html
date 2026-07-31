@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jamsBot</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <h1 class="page-title" id="newsPanel"> The <span class="brand">AI Panel</span></h1>
+        <div class="box-twin">
+            <div class="box-item">
+                <h3 class="data-title"> jamsAI (Seqential learning model)</h3>
+                <p class="data-text" id="abs"> <br>The output of the stock-data bot will go here</p>
+            </div>
+            <div class="box-item">Reinforcement learning model</div>
+        </div>
+        <button class="nav-arrow right" id="to-search" title="Go to Stock Searcher">&#8594;</button>
+        <script>
+            document.getElementById('to-search').addEventListener('click', function(){
+                window.location.href = "{{ url_for('stockSearcher') }}";
+            });
+
+            document.querySelectorAll('.box-item').forEach(function(box){
+                box.addEventListener('click', function(){
+                    let isExpanded = box.classList.contains('expanded');
+
+                    // collapse and other box that is expanded
+                    document.querySelectorAll('.box-item.expanded').forEach(function(other){
+                        other.classList.remove('expanded');
+                    });
+                    // if this box is not expanded, expand it
+                    if (!isExpanded){
+                        box.classList.add('expanded')
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>
