@@ -69,7 +69,7 @@
         </div>
         <div class="chat">
             <h3 class="data-title"> Terminal</h3>
-            <p class="data-text" id="chat"> Outputs will go here...</p>
+            <p class="data-text" id="chat">{{ ticker }}</p>
         </div>
         <button class="nav-arrow right" id="to-news" title="Go to News Panel">&#8594;</button>
         <button class="nav-arrow left" id="to-AI" title="Go to AI Panel">&#8592;</button>
@@ -79,11 +79,7 @@
                 let symbolInput = document.getElementById('search-input');
                 let symbol = symbolInput.value.trim()
                 if (!symbol) return;
-
-                let chatBox = document.getElementById('chat')
-                let SMediaBox = document.getElementById('SMedia')
-                let newsBox = document.getElementById('News')
-                let stockBot = document.getElementById('jamsAI')
+                
                 try {
                     let resp = await fetch(`/company_given?company=${encodeURIComponent(symbol)}`);
                     let data = await resp.json();
@@ -91,12 +87,9 @@
                         chatBox.innerHTML = `<p class="data-text">Error: ${data.error || 'Server returned ' + resp.status}</p>`;
                         return;
                     }
-                    let edgar;
-                    if (data.edgar.length){
-                        edgar = data.edgar.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to filing</a> </p>`).join('');
-                    } else {
-                        edgar = '<p class="data-text">No recent EDGAR filings.</p>';
-                    }
+                    // data has been successully loaded, append ticker to url
+                    ticker = data.ticker;
+                    // handle sqlite outputs from database calls and turn them into readable format
                     let stocktwits;
                     if (data.stocktwits.length){
                         stocktwits = data.stocktwits.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to post</a> </p>`).join('');
@@ -109,6 +102,7 @@
                     } else {
                         news = '<p class="data-text">No recent newsAPI mentions.</p>';
                     }
+                    // update prediction, confidence, and probabilities for bot
                     let bot;
                     if (data.bot && data.bot.prediction !== undefined && data.bot.prediction !== null) {
                         let probs = data.bot.probabilities
@@ -123,9 +117,13 @@
                         bot = '<p class="data-text">Ticker not present in bot database.</p>';
                     }
                     
+                    // formalize data to html 
+                    let chatBox = document.getElementById('chat');
+                    let SMediaBox = document.getElementById('SMedia');
+                    let newsBox = document.getElementById('News');
+                    let stockBot = document.getElementById('jamsAI');
                     SMediaBox.innerHTML = 
                         `<p class="data-title" id="ticker">${data.ticker}</p>` + 
-                        `<p class="data-title" style="margin-top:1vh;">EDGAR</p>` + edgar +
                         `<p class="data-title" style="margin-top:1vh;">StockTwits</p>` + stocktwits;
                     
                     newsBox.innerHTML = 
@@ -143,11 +141,27 @@
                     chatBox.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;
                 }
             })
+            // must be BELOW search-form listener or else .requestSubmit() will do NOTHING
+            let ticker = "{{ ticker }}";
+            if (ticker) {
+                document.getElementById('search-input').value = ticker;
+                document.getElementById('search-form').requestSubmit()
+            }
             document.getElementById('to-news').addEventListener("click", function(){
-                window.location.href = "{{ url_for('newsPanel') }}"
+                let url = "{{ url_for('newsPanel') }}"
+                if (ticker){
+                    // add ticker to url
+                    url += `?ticker=${encodeURIComponent(ticker)}`;
+                }
+                window.location.href = url;
             })
             document.getElementById('to-AI').addEventListener("click", function(){
-                window.location.href = "{{ url_for('AIPanel') }}"
+                 let url = "{{ url_for('AIPanel') }}"
+                if (ticker){
+                    // add ticker to url
+                    url += `?ticker=${encodeURIComponent(ticker)}`;
+                }
+                window.location.href = url;
             })
 
         </script>

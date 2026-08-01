@@ -23,6 +23,7 @@ from company_name_manager import get_other_names
 from web_scrapers.edgar_scraper import get_edgar_filings
 # from web_scrapers.reddit_scraper import get_reddit_mentions
 from web_scrapers.stocktwits_scraper import get_stocktwits_mentions
+from web_scrapers.finnhub_scraper import get_finnhub_mentions
 
 from company_name_manager import get_top_50
 
@@ -39,52 +40,44 @@ def run(ticker: str):
     # load hits from edgar
     edgar_user_agent = os.getenv("EDGAR_USER_AGENT")
     # make sure user agent enabled
-    if edgar_user_agent:
-        try: 
-            # get full company name from ticker symbol
-            i,company_name,j = get_other_names(ticker)
-            # gets hits and appends them to all_mentions
-            edgar_hits = get_edgar_filings(company_name, edgar_user_agent)
-            print (f"[edgar] fetched {len(edgar_hits)} filings")
-            for m in edgar_hits:
-                m["source_type"] = "edgar"
-                all_mentions.append(m)
-        except Exception as e:
-            print(f"[edgar] error: {e}")
-    else:
-        print("[edgar] skipped (set EDGAR_USER_AGENT and pass --company to enable)")
-
-
-    # commented out due to reddit API restrictions, must get manual API approval and still waiting on application
-    # #load hits from reddit
-    # reddit_id = os.getenv("REDDIT_CLIENT_ID")
-    # reddit_secret = os.getenv("REDDIT_CLIENT_SECRET")
-    # reddit_user_agent = os.getenv("REDDIT_USER_AGENT")
-    # # gets all credientials and makes sure they are all valid 
-    # if reddit_id and reddit_secret and reddit_user_agent:
-    #     try:
+    # if edgar_user_agent:
+    #     try: 
+    #         # get full company name from ticker symbol
+    #         i,company_name,j = get_other_names(ticker)
     #         # gets hits and appends them to all_mentions
-    #         reddit_hits = get_reddit_mentions(ticker, reddit_id, reddit_secret, reddit_user_agent)
-    #         print(f"[reddt] fetched {len(reddit_hits)} filings")
-    #         for m in reddit_hits:
-    #             m["source_type"] = "reddit"
+    #         edgar_hits = get_edgar_filings(company_name, edgar_user_agent)
+    #         print (f"[edgar] fetched {len(edgar_hits)} filings")
+    #         for m in edgar_hits:
+    #             m["source_type"] = "edgar"
     #             all_mentions.append(m)
     #     except Exception as e:
-    #         print(f"[reddit] error: {e}")
+    #         print(f"[edgar] error: {e}")
     # else:
-    #     print("[reddit] skipped (missing REDDIT_CLIENT_ID / SECRET / USER_AGENT)")
+    #     print("[edgar] skipped (set EDGAR_USER_AGENT and pass --company to enable)")
 
     # load hits from stocktwits
     # no credientials needed
+    # try: 
+    #     # gets hits and appends
+    #     st_hits = get_stocktwits_mentions(ticker)
+    #     print (f"[stocktwits] fetched {len(st_hits)} filings")
+    #     for m in st_hits:
+    #         m["source_type"] = "stocktwits"
+    #         all_mentions.append(m)
+    # except Exception as e:
+    #     print(f"[stocktwits] error: {e}")
+
+    # load hits from finnhub
+    # API pre-coded into file
     try: 
         # gets hits and appends
-        st_hits = get_stocktwits_mentions(ticker)
-        print (f"[stocktwits] fetched {len(st_hits)} filings")
-        for m in st_hits:
-            m["source_type"] = "stocktwits"
+        fin_hits = get_finnhub_mentions(ticker)
+        print (f"[finnhub] fetched {len(fin_hits)} articles")
+        for m in fin_hits:
+            m["source_type"] = "Finnhub"
             all_mentions.append(m)
     except Exception as e:
-        print(f"[stocktwits] error: {e}")
+        print(f"[finnhub] error: {e}")
 
     # store
     inserted, skipped = 0, 0
@@ -148,3 +141,31 @@ if __name__ == "__main__":
     for ticker in tickers:
         run(ticker)
 
+
+
+
+
+
+
+
+
+
+
+# commented out due to reddit API restrictions, must get manual API approval and still waiting on application
+    # #load hits from reddit
+    # reddit_id = os.getenv("REDDIT_CLIENT_ID")
+    # reddit_secret = os.getenv("REDDIT_CLIENT_SECRET")
+    # reddit_user_agent = os.getenv("REDDIT_USER_AGENT")
+    # # gets all credientials and makes sure they are all valid 
+    # if reddit_id and reddit_secret and reddit_user_agent:
+    #     try:
+    #         # gets hits and appends them to all_mentions
+    #         reddit_hits = get_reddit_mentions(ticker, reddit_id, reddit_secret, reddit_user_agent)
+    #         print(f"[reddt] fetched {len(reddit_hits)} filings")
+    #         for m in reddit_hits:
+    #             m["source_type"] = "reddit"
+    #             all_mentions.append(m)
+    #     except Exception as e:
+    #         print(f"[reddit] error: {e}")
+    # else:
+    #     print("[reddit] skipped (missing REDDIT_CLIENT_ID / SECRET / USER_AGENT)")

@@ -169,6 +169,12 @@ body::before {
     font-weight: 700;
 }
 
+.title{
+    margin: 0 0 2vh 0 ;
+    font-size: 16px;
+    font-weight: 700;
+}
+
 .data-text{
     margin: 0;
     font-size: 13px;
@@ -208,7 +214,7 @@ body::before {
 
 .box-item{
     position: relative;
-    z-index:1;
+    z-index: 1;
     overflow: hidden;
     background: #5571ff;
     color: #ffffff;
@@ -218,8 +224,12 @@ body::before {
     font-weight: 600;
     text-align: left;
     display: flex;
-    align-items: left;
-    justify-content: left;
+    flex-direction: column;     
+    align-items: flex-start;     
+    justify-content: flex-start; 
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     transition: 0.5s;
 }
 
@@ -241,7 +251,7 @@ body::before {
     justify-content: flex-start;
     text-align: left;
     overflow-y: auto;
-    transition: None;
+    transition: none;
 }
 
 
@@ -278,7 +288,7 @@ body::before {
     right: 0vh;
 }
 
-#abs{
+.abs{
     top: var(--padding);
     position:absolute;
 }

@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, render_template
 
 # for vercel must add __init__.py to make this its own package
 try :
-    from .storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
+    from .storage import *
 except ImportError:
-    from storage import get_conn, init_db, edgar_summary, stocktwits_summary, news_summary
+    from storage import *
 
 import sys
 import os
@@ -47,29 +47,33 @@ def summary():
         if ticker not in tickers:
             return jsonify({"error": "company not in database"}), 400
 
-
     with get_conn() as conn:
         # in bottom of storage.py; returns a dict for easy access of each key aspect (title, url, etc.)
         edgar = edgar_summary(conn, ticker)
         stocktwits = stocktwits_summary(conn, ticker)
         news = news_summary(conn, ticker)
+        yahoo = yahoo_summary(conn, ticker)
+        cnbc = cnbc_summary(conn, ticker)
         # uses ai model to predict
         prediction, confidence,probabilities = predict_latest(ticker)
-        bot = {"prediction": prediction, "confidence": confidence,"probabilities": probabilities }
+        bot = {"prediction": prediction, "confidence": confidence,"probabilities": probabilities}
     # sends to stockSearcher html template
-    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "bot": bot})
+    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "yahoo": yahoo, "cnbc": cnbc, "bot": bot})
 
 @app.route("/stockSearcher.html")
 def stockSearcher():
-    return render_template("stockSearcher.html")
+    ticker = request.args.get("ticker", "")
+    return render_template("stockSearcher.html", ticker=ticker)
 
 @app.route("/newsPanel.html")
 def newsPanel():
-    return render_template("newsPanel.html")
+    ticker = request.args.get("ticker", "")
+    return render_template("newsPanel.html", ticker=ticker)
 
 @app.route("/AIPanel.html")
 def AIPanel():
-    return render_template("AIPanel.html")
+    ticker = request.args.get("ticker", "")
+    return render_template("AIPanel.html", ticker=ticker)
 
 
 if __name__ == "__main__":

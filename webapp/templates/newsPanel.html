@@ -8,22 +8,66 @@
         <button class="nav-arrow left" id="to-search" title="Go to Stock Searcher">&#8592;</button>
         <h1 class="page-title" id="newsPanel"> The <span class="brand">News Panel</span></h1>
         <div class="box-grid">
-            <div class="box-item">
-                <h3 class="data-title"> Yahoo</h3>
-                <p class="data-text" id="abs"> <br>News will go here</p>
-            </div>
+            <div class="box-item" id="Yahoo">Yahoo</div>
             <div class="box-item">Stocktwits</div>
-            <div class="box-item">CNBC</div>
+            <div class="box-item" id="CNBC">CNBC</div>
             <div class="box-item">24/7 Wall Street</div>
+            <div class="box-item">{{ticker}}</div>
             <div class="box-item">TBD</div>
-            <div class="box-item">TBD</div>
-            <div class="box-item">Edgar</div>
+            <div class="box-item" id="Edgar">Edgar</div>
             <div class="box-item">Insider Trades</div>
         </div>
         <script>
+            let ticker = "{{ ticker }}"
             document.getElementById('to-search').addEventListener('click', function(){
-                window.location.href = "{{ url_for('stockSearcher') }}";
+                let url = "{{ url_for('stockSearcher') }}"
+                if (ticker){
+                    url += `?ticker=${encodeURIComponent(ticker)}`;
+                }
+                window.location.href = url;
             });
+            document.addEventListener("DOMContentLoaded", async function(){
+                try {    
+                    let resp = await fetch(`/company_given?company=${encodeURIComponent(ticker)}`);
+                    let data = await resp.json();
+                    // debugging box - equivalent to chat-box on main page
+                    let yahoo_id = document.getElementById('Yahoo');
+                    if (!resp.ok || data.error) {
+                        yahoo.innerHTML = `<p class="data-text">Error: ${data.error || 'Server returned ' + resp.status}</p>`;
+                        return;
+                    }
+                    // handle sqlite outputs from database calls and turn them into readable format
+                    //EDGAR
+                    let edgar
+                    if (data.edgar.length){
+                        edgar = data.edgar.map(item => `<p class="data-text"><strong>${item.title || 'Filing'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to filing</a> </p>`).join('');
+                    } else {
+                        edgar = '<p class="data-text">No recent EDGAR filings.</p>';
+                    }
+                    let edgar_id = document.getElementById('Edgar');
+                    edgar_id.innerHTML = `<p class="data-title">Edgar</p>` + edgar;
+                    //YAHOO
+                    let yahoo
+                    if (data.yahoo.length){
+                        yahoo = data.yahoo.map(item => `<p class="data-text"><strong>${item.title || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to article</a> </p>`).join('');
+                    } else {
+                        yahoo = '<p class="data-text">No recent Yahoo filings.</p>';
+                    }
+                    yahoo_id.innerHTML = `<p class="data-title">Yahoo</p>` + yahoo;
+                    //CNBC
+                    let cnbc
+                    if (data.cnbc.length){
+                        cnbc = data.cnbc.map(item => `<p class="data-text"><strong>${item.title || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to article</a> </p>`).join('');
+                    } else {
+                        cnbc = '<p class="data-text">No recent CNBC filings.</p>';
+                    }
+                    let cnbc_id = document.getElementById('CNBC');
+                    cnbc_id.innerHTML = `<p class="data-title">CNBC</p>` + cnbc;
+                } catch (e) {
+                    // error message to first box for user simplicity
+                    yahoo.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;
+                }
+            })
 
             document.querySelectorAll('.box-item').forEach(function(box){
                 box.addEventListener('click', function(){

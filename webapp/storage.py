@@ -105,3 +105,13 @@ def news_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
     top = conn.execute("SELECT title, text, url, published_at, source_name FROM mentions WHERE ticker = ? AND source_type = ? ORDER BY follower_count DESC LIMIT ?", (ticker, "newsapi", limit)).fetchall()
     return [dict(r) for r in top]
 
+def yahoo_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    # ordered by follow_count(authority rating)
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_name = ? ORDER BY published_at DESC LIMIT ?", (ticker, "Yahoo", limit)).fetchall()
+    return [dict(r) for r in top]
+
+def cnbc_summary(conn, ticker:str, limit:int = 10) -> list[dict]:
+    # ordered by follow_count(authority rating)
+    top = conn.execute("SELECT title, text, url, published_at FROM mentions WHERE ticker = ? AND source_name = ? ORDER BY published_at DESC LIMIT ?", (ticker, "CNBC", limit)).fetchall()
+    return [dict(r) for r in top]
+

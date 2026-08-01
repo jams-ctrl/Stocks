@@ -11,12 +11,20 @@
                 <h3 class="data-title"> jamsAI (Seqential learning model)</h3>
                 <p class="data-text" id="abs"> <br>The output of the stock-data bot will go here</p>
             </div>
-            <div class="box-item">Reinforcement learning model</div>
+            <div class="box-item">
+                <h3 class="data-title"> Reinforcement Learning Model</h3>
+                <p class="data-text" id="abs"> <br>{{ticker}}</p>
+            </div>
         </div>
         <button class="nav-arrow right" id="to-search" title="Go to Stock Searcher">&#8594;</button>
         <script>
+            ticker = "{{ ticker }}"
             document.getElementById('to-search').addEventListener('click', function(){
-                window.location.href = "{{ url_for('stockSearcher') }}";
+                let url = "{{ url_for('stockSearcher') }}"
+                if (ticker){
+                    url += `?ticker=${encodeURIComponent(ticker)}`;
+                }
+                window.location.href = url;
             });
 
             document.querySelectorAll('.box-item').forEach(function(box){

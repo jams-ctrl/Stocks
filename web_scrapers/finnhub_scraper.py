@@ -37,7 +37,7 @@ def to_iso (date):
     return datetime.fromtimestamp(date, tz=timezone.utc).isoformat()[:10]
 
 # gets mentions from various news outlets supported by finnhub and puts it in correct form to be loaded to the mentions.py database by main.py
-def get_finnhub_mentions(ticker: str, company_name=None):
+def get_finnhub_mentions(ticker: str,company_name=None):
     msg = finnhub_client.company_news(ticker, _from="2025-12-01", to="2026-06-10")
     results = []
     for article in msg:
@@ -59,7 +59,6 @@ def get_finnhub_mentions(ticker: str, company_name=None):
                 "follower_count": None,    
             }
         )
-        print(to_iso(article["datetime"]))
     return results
 
 if __name__ == "__main__":
