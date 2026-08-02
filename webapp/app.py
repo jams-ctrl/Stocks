@@ -1,4 +1,11 @@
 from flask import Flask, request, jsonify, render_template
+import json
+import os
+
+# get abs path for this file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# go up one parent folder
+PROJECT_ROOT = os.path.dirname(BASE_DIR)    
 
 # for vercel must add __init__.py to make this its own package
 try :
@@ -77,6 +84,11 @@ def AIPanel():
     ticker = request.args.get("ticker", "")
     return render_template("AIPanel.html", ticker=ticker)
 
+@app.route('/trends/<ticker>')
+def trends(ticker):
+    path = os.path.join(PROJECT_ROOT, 'web_scrapers', f'{ticker}.json')
+    with open(path) as f:
+        return jsonify(json.load(f))
 
 if __name__ == "__main__":
     init_db()

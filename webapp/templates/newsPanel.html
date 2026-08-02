@@ -12,11 +12,15 @@
             <div class="box-item" id="Stocktwits">Stocktwits</div>
             <div class="box-item" id="CNBC">CNBC</div>
             <div class="box-item" id="wallStreet">General News</div>
-            <div class="box-item">Google Trends</div>
+            <div class="box-item" >Google Trends
+                <canvas id="chart"></canvas>
+            </div>
             <div class="box-item" id="Benzinga">Benzinga & Seeking Alpha</div>
             <div class="box-item" id="Edgar">Edgar</div>
             <div class="box-item">Insider Trades</div>
         </div>
+        <!-- install graph library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
         <script>
             let ticker = "{{ ticker }}"
             document.getElementById('to-search').addEventListener('click', function(){
@@ -33,7 +37,7 @@
                     // debugging box - equivalent to chat-box on main page
                     let yahoo_id = document.getElementById('Yahoo');
                     if (!resp.ok || data.error) {
-                        yahoo.innerHTML = `<p class="data-text">Error: ${data.error || 'Server returned ' + resp.status}</p>`;
+                        yahoo_id.innerHTML = `<p class="data-text">Error: ${data.error || 'Server returned ' + resp.status}</p>`;
                         return;
                     }
                     // handle sqlite outputs from database calls and turn them into readable format
@@ -91,6 +95,53 @@
                     }
                     let benzinga_id = document.getElementById('Benzinga');
                     benzinga_id.innerHTML = `<p class="data-title">Bezinga & Seeking Alpha</p>` + benzinga;
+                    // GOOGLE TRENDS
+                    // get json file and turn it into useable data
+                    fetch(`/trends/${ticker}`).then(res=>res.json()).then(json =>{
+                        let timeline = json.timeline_data;
+                        let labels = timeline.map(d => d.date);
+                        let values = timeline.map(d => d.values[0].extracted_value);
+                        // create chart
+                        new Chart(document.getElementById('chart'), {
+                            type: 'line', 
+                            data: {
+                                labels: labels, 
+                                datasets: [{
+                                    label: '{{ticker}} search interest',
+                                    data: values, 
+                                    borderColor: "#ff7070",
+                                    backgroundColor: 'rgba(255, 112, 112, 0.15)',
+                                    fill: true, 
+                                    tension: 0.25, 
+                                    pointRadius:0
+                                }]
+                            }, 
+                            options: {
+                                responsive:true, 
+                                maintainAspectRatio:false, 
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: '#ffffff'
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x:{
+                                        ticks: {color: '#ffffff'}, 
+                                        grid: {color: 'rgba(255, 255, 255, 0.25)'}
+                                    },
+                                    y:
+                                    {
+                                        ticks: {color: '#ffffff'}, 
+                                        grid: {color: 'rgba(255, 255, 255, 0.25)'}
+                                    },
+                                }
+                            }
+                        });
+                     })
+                    .catch(err => console.error('Failed to load data.json:', err));
+                
 
                 } catch (e) {
                     // error message to first box for user simplicity
