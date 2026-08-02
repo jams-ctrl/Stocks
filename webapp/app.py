@@ -23,6 +23,8 @@ from company_name_manager import get_other_names, get_top_50
 
 from model.prediction import predict_latest
 
+from web_scrapers.finnhub_scraper import insider_trades
+
 app = Flask(__name__)
 
 # if just loading up the page
@@ -63,11 +65,12 @@ def summary():
         cnbc = cnbc_summary(conn, ticker)
         wallStreet = wall_street_summary(conn, ticker)
         benzinga = benzinga_summary(conn, ticker)
+        insiderTrades = insider_trades(ticker)
         # uses ai model to predict
         prediction, confidence,probabilities = predict_latest(ticker)
         bot = {"prediction": prediction, "confidence": confidence,"probabilities": probabilities}
     # sends to stockSearcher html template
-    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "yahoo": yahoo, "cnbc": cnbc, "bot": bot,"wallStreet": wallStreet, "benzinga": benzinga})
+    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "yahoo": yahoo, "cnbc": cnbc, "bot": bot,"wallStreet": wallStreet, "benzinga": benzinga, "insiderTrades": insiderTrades})
 
 @app.route("/stockSearcher.html")
 def stockSearcher():

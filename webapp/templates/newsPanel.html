@@ -17,7 +17,18 @@
             </div>
             <div class="box-item" id="Benzinga">Benzinga & Seeking Alpha</div>
             <div class="box-item" id="Edgar">Edgar</div>
-            <div class="box-item">Insider Trades</div>
+            <div class="box-item">
+                <p class="data-title">Insider Trades</p>
+                <table id="insiderTable">
+                    <thead style="background: #ff7070;">
+                        <th style="text-align: left; padding:6px">Year</th> 
+                        <th style="text-align: left; padding:6px">Month</th> 
+                        <th style="text-align: left; padding:6px">Change</th> 
+                        <th style="text-align: left; padding:6px">Mspr</th> 
+                    </thead>
+                    <tbody id="insiderBody" style="background: #ff7070;"></tbody>
+                </table>
+            </div>
         </div>
         <!-- install graph library -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -133,14 +144,34 @@
                                     },
                                     y:
                                     {
+                                        beginAtZero: true,
                                         ticks: {color: '#ffffff'}, 
                                         grid: {color: 'rgba(255, 255, 255, 0.25)'}
+
                                     },
                                 }
                             }
                         });
                      })
                     .catch(err => console.error('Failed to load data.json:', err));
+                    // INSIDER TRADES
+                    let insiderTrades;
+                    let insiderRows = data.insiderTrades.data;
+                    if (insiderRows && insiderRows.length){
+                        insiderRows.sort((a, b) => a.year - b.year || a.month - b.month);
+                        insiderTrades = insiderRows.map(row=>{
+                            return `<tr>
+                                <td style="padding: 6px;text-align: left;">${row.year}</td>
+                                <td style="padding: 6px;text-align: left;">${row.month}</td>
+                                <td style="padding: 6px;text-align: left;">${row.change.toLocaleString()}</td>
+                                <td style="padding: 6px;text-align: left;;">${row.mspr.toFixed(1)}</td>
+                            </tr>`;
+                        }).join('');
+                    } else {
+                        insiderTrades = '<tr><td colspan="4" class="data-text">No recent insider trades.</td></tr>';;
+                    }
+                    let insiderTrades_id = document.getElementById('insiderBody');
+                    insiderTrades_id.innerHTML = insiderTrades;
                 
 
                 } catch (e) {

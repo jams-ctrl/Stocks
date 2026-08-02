@@ -66,5 +66,4 @@ if __name__ == "__main__":
     # print(get_finnhub_mentions(ticker))
     # print(get_price(ticker))
     # print(get_neighbours(ticker))
-    print(financials(ticker))
     print(insider_trades(ticker))
