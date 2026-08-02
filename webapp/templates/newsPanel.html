@@ -9,11 +9,11 @@
         <h1 class="page-title" id="newsPanel"> The <span class="brand">News Panel</span></h1>
         <div class="box-grid">
             <div class="box-item" id="Yahoo">Yahoo</div>
-            <div class="box-item">Stocktwits</div>
+            <div class="box-item" id="Stocktwits">Stocktwits</div>
             <div class="box-item" id="CNBC">CNBC</div>
-            <div class="box-item">24/7 Wall Street</div>
-            <div class="box-item">{{ticker}}</div>
-            <div class="box-item">TBD</div>
+            <div class="box-item" id="wallStreet">General News</div>
+            <div class="box-item">Google Trends</div>
+            <div class="box-item" id="Benzinga">Benzinga & Seeking Alpha</div>
             <div class="box-item" id="Edgar">Edgar</div>
             <div class="box-item">Insider Trades</div>
         </div>
@@ -53,7 +53,7 @@
                     } else {
                         yahoo = '<p class="data-text">No recent Yahoo filings.</p>';
                     }
-                    yahoo_id.innerHTML = `<p class="data-title">Yahoo</p>` + yahoo;
+                    yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance</p>` + yahoo;
                     //CNBC
                     let cnbc
                     if (data.cnbc.length){
@@ -63,6 +63,35 @@
                     }
                     let cnbc_id = document.getElementById('CNBC');
                     cnbc_id.innerHTML = `<p class="data-title">CNBC</p>` + cnbc;
+                    // STOCKTWITS
+                    let stocktwits;
+                    if (data.stocktwits.length){
+                        stocktwits = data.stocktwits.map(item => `<p class="data-text"><strong>${item.title || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to post</a> </p>`).join('');
+                    } else {
+                        stocktwits = '<p class="data-text">No recent StockTwits mentions.</p>';
+                    }
+                    let stocktwits_id = document.getElementById('Stocktwits');
+                    stocktwits_id.innerHTML = `<p class="data-title">Stocktwits</p>` + stocktwits;
+                    // NEWSAPI - originally created for 24/7 wall street but I realized it didnt have enough sources and I was too lazy to change variable names
+                    //  - it was at this point i realized I could've used a function for all of this... But no going back now! Customization, right!!!!
+                    let wallStreet;
+                    if (data.wallStreet.length){
+                        wallStreet = data.wallStreet.map(item => `<p class="data-text"><strong>${item.title || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to post</a> </p>`).join('');
+                    } else {
+                        wallStreet = '<p class="data-text">No recent general news mentions.</p>';
+                    }
+                    let wallStreet_id = document.getElementById('wallStreet');
+                    wallStreet_id.innerHTML = `<p class="data-title">General News</p>` + wallStreet;
+                    // BENZINGA and SEEKINGALPHA
+                    let benzinga;
+                    if (data.benzinga.length){
+                        benzinga = data.benzinga.map(item => `<p class="data-text"><strong>${item.title || 'Article'}</strong><br>${(item.published_at||"").slice(0, 10)} ${(item.text || '').slice(0, 1000)} <a href=${(item.url || '')} target="_blank">Link to post</a> </p>`).join('');
+                    } else {
+                        benzinga = '<p class="data-text">No recent Benzinga/Seeking Alpha mentions.</p>';
+                    }
+                    let benzinga_id = document.getElementById('Benzinga');
+                    benzinga_id.innerHTML = `<p class="data-title">Bezinga & Seeking Alpha</p>` + benzinga;
+
                 } catch (e) {
                     // error message to first box for user simplicity
                     yahoo.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;

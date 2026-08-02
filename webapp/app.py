@@ -54,11 +54,13 @@ def summary():
         news = news_summary(conn, ticker)
         yahoo = yahoo_summary(conn, ticker)
         cnbc = cnbc_summary(conn, ticker)
+        wallStreet = wall_street_summary(conn, ticker)
+        benzinga = benzinga_summary(conn, ticker)
         # uses ai model to predict
         prediction, confidence,probabilities = predict_latest(ticker)
         bot = {"prediction": prediction, "confidence": confidence,"probabilities": probabilities}
     # sends to stockSearcher html template
-    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "yahoo": yahoo, "cnbc": cnbc, "bot": bot})
+    return jsonify ({"ticker": ticker, "edgar": edgar, "stocktwits": stocktwits, "news": news, "yahoo": yahoo, "cnbc": cnbc, "bot": bot,"wallStreet": wallStreet, "benzinga": benzinga})
 
 @app.route("/stockSearcher.html")
 def stockSearcher():

@@ -1,19 +1,16 @@
 Deploy & Ship today!!(Tues Jul 28)
 Do:
-Make Readme
-Add desc for model
 
 Research:
 How to make a reinforcement-learning AI with tensorflow (or something else)
 How to use cron + implement into whole project
 
 Look At:
-Edgar, StockTwits, NewsAPI, 
-See if scrapers can improve in efficiency and increase authenticity
+The guardian
+NYT
+As possible news sources
 
 Plan:
-Blueprint for new HTML page 
-Getting more sources (yfinance, twitter, instagram) for news scrapers 
 Add google trends/ searches?
 
 Do for part 2:

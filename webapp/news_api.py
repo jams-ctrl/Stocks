@@ -67,7 +67,7 @@ def to_mention(article:dict, ticker:str, fetched_at:str) -> dict | None:
     external_id = hashlib.sha256(url.encode("utf-8")).hexdigest()[:32]
 
     description = article.get("description") or ""
-    # visual declaration of authority
+    # visual declaration of authority - CHANGE when reloading database
     text = f"{description}\n\n[source authority: {authority}/5]"
     # put data in format of sqlite table
     return {

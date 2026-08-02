@@ -15,6 +15,8 @@ dependencies = [
     "joblib",
     "flask",
     "yfinance",
+    "finnhub-python"
+    "serpapi",
 ]
 
 [tool.vercel]
