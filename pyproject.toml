@@ -15,7 +15,7 @@ dependencies = [
     "joblib",
     "flask",
     "yfinance",
-    "finnhub-python"
+    "finnhub-python",
     "serpapi",
 ]
 
