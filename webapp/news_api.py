@@ -125,9 +125,9 @@ if __name__ == "__main__":
     # go up one parent folder
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     # since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
-    from company_name_manager import get_top_50
+    from company_name_manager import get_top
     # get top 50 companies from company_name_manager.py
-    tickers = get_top_50()
+    tickers = get_top()
     # run script for each company
     for ticker in tickers:
         run(ticker)

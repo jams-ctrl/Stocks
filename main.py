@@ -70,7 +70,7 @@ def run(ticker: str):
     # load hits from finnhub
     # API pre-coded into file
     try: 
-        # gets hits and appends
+        # gets hits and appends from finnhub
         fin_hits = get_finnhub_mentions(ticker)
         print (f"[finnhub] fetched {len(fin_hits)} articles")
         for m in fin_hits:

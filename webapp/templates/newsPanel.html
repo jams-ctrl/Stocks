@@ -12,15 +12,17 @@
             <div class="box-item" id="Stocktwits">Stocktwits</div>
             <div class="box-item" id="CNBC">CNBC</div>
             <div class="box-item" id="wallStreet">General News</div>
-            <div class="box-item" >Google Trends
-                <p class="data-description">A line graph sourced from google trends that shows the frequency of the trade overtime. If no graph shows up, I was unfortunately unable to obtain the graph due to strict api limits. </p>
+            <div class="box-item">
+                <p class="data-title">Google Trends</p>
+                <p class="data-description">A line graph sourced from google trends that shows the frequency of the trade overtime.</p>
                 <canvas id="chart"></canvas>
+                <p class="data-description">If no graph shows up, I was unfortunately unable to obtain the graph due to strict api limits. </p>
             </div>
             <div class="box-item" id="Benzinga">Benzinga & Seeking Alpha</div>
             <div class="box-item" id="Edgar">Edgar</div>
             <div class="box-item">
                 <p class="data-title">Insider Trades</p>
-                <p class="data-description">A list of LEGAL insider trades made by company executives, as they are required to publicly broadcast their stock trades pertaining to their company as mandated by the US government. If empty, this means Finnhub's API limit has been exceeded. Please wait an hour before trying again. </p>
+                <p class="data-description">A list of LEGAL insider trades made by company executives, as they are required to publicly broadcast their stock trades pertaining to their company as mandated by the US government.</p>
                 <table id="insiderTable">
                     <thead style="background: #ff7070;">
                         <th style="text-align: left; padding:6px">Year</th> 
@@ -30,11 +32,13 @@
                     </thead>
                     <tbody id="insiderBody" style="background: #ff7070;"></tbody>
                 </table>
+                <p class="data-description">If empty, this means Finnhub's API limit has been exceeded. Please wait an hour before trying again.</p>
             </div>
         </div>
         <!-- install graph library -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
         <script>
+            // get ticker from jinja 
             let ticker = "{{ ticker }}"
             document.getElementById('to-search').addEventListener('click', function(){
                 let url = "{{ url_for('stockSearcher') }}"
@@ -109,17 +113,18 @@
                     let benzinga_id = document.getElementById('Benzinga');
                     benzinga_id.innerHTML = `<p class="data-title">Bezinga & Seeking Alpha</p>` + `<p class="data-description">Articles from 2 reputable news outlets, Benzinga and Seeking Alpha</p>` +benzinga;
                     // GOOGLE TRENDS
-                    // get json file and turn it into useable data
+                    // get json file and turn it into useable data from web_scrapers/google_trends
                     fetch(`/trends/${ticker}`).then(res=>res.json()).then(json =>{
                         let timeline = json.timeline_data;
                         let labels = timeline.map(d => d.date);
                         let values = timeline.map(d => d.values[0].extracted_value);
-                        // create chart
+                        // create chart with various attributes
                         new Chart(document.getElementById('chart'), {
                             type: 'line', 
                             data: {
                                 labels: labels, 
                                 datasets: [{
+                                    // jinja for labelling
                                     label: '{{ticker}} search interest',
                                     data: values, 
                                     borderColor: "#ff7070",
@@ -139,6 +144,7 @@
                                         }
                                     }
                                 },
+                                // set colour of grid and tick lines
                                 scales: {
                                     x:{
                                         ticks: {color: '#ffffff'}, 
@@ -181,7 +187,8 @@
                     yahoo.innerHTML = `<p class="data-text">Error fetching data: ${e.message}</p>`;
                 }
             })
-
+            
+            // EXPANDS (or toggles) EACH GRID BOX ON CLICK - very nice!
             document.querySelectorAll('.box-item').forEach(function(box){
                 box.addEventListener('click', function(){
                     let isExpanded = box.classList.contains('expanded');

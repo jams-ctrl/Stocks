@@ -19,7 +19,7 @@ import os
 # go up one parent folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
-from company_name_manager import get_other_names, get_top_50
+from company_name_manager import get_other_names, get_top
 
 from model.prediction import predict_latest
 
@@ -36,7 +36,7 @@ def index():
 @app.route("/company_given")
 def summary():
     # get top 50 tickers
-    tickers = get_top_50()
+    tickers = get_top()
     company = request.args.get("company", "").strip().lower()
     # if inputted company is already a ticker
     if company.upper() in tickers:
@@ -89,7 +89,7 @@ def AIPanel():
 
 @app.route('/trends/<ticker>')
 def trends(ticker):
-    path = os.path.join(PROJECT_ROOT, 'web_scrapers', f'{ticker}.json')
+    path = os.path.join(PROJECT_ROOT, 'web_scrapers','google_trends', f'{ticker}.json')
     with open(path) as f:
         return jsonify(json.load(f))
 

@@ -13,8 +13,8 @@
         <div class="data SOI">
             <h3 class="data-title"> Dev Notes </h3>
             <p class="data-text" id="SOI"> Hey Approver, thanks for checking this out, hope you like it! The current available stocks are: <br> <br>
-            "NVDA",   # NVIDIA Corporation <br>
-            "AAPL",   # Apple Inc.<br>
+            "NVDA",   # NVIDIA Corporation
+            "AAPL",   # Apple Inc. <br>
             "MSFT",   # Microsoft Corporation<br>
             "GOOGL",  # Alphabet Inc. (Class A)<br>
             "GOOG",   # Alphabet Inc. (Class C)<br>
@@ -53,7 +53,71 @@
             "MCHP",   # Microchip Technology Inc.<br>
             "ON",     # ON Semiconductor Corporation<br>
             "EA",     # Electronic Arts Inc.<br>
-            "CTSH",   # Cognizant Technology Solutions Corp.</p>
+            "CTSH",   # Cognizant Technology Solutions Corp.<br>
+            "AVGO",   # Broadcom Inc.<br>
+            "JPM",    # JPMorgan Chase & Co.<br>
+            "V",      # Visa Inc.<br>
+            "MA",     # Mastercard Inc.<br>
+            "WMT",    # Walmart Inc.<br>
+            "UNH",    # UnitedHealth Group Inc.<br>
+            "XOM",    # ExxonMobil Corporation<br>
+            "JNJ",    # Johnson & Johnson<br>
+            "PG",     # Procter & Gamble Co.<br>
+            "HD",     # Home Depot Inc.<br>
+            "KO",     # Coca-Cola Company<br>
+            "BAC",    # Bank of America Corporation<br>
+            "CRM",    # Salesforce Inc.<br>
+            "ORCL",   # Oracle Corporation<br>
+            "IBM",    # International Business Machines Corporation<br>
+            "MCD",    # McDonald's Corporation<br>
+            "NKE",    # Nike Inc.<br>
+            "DIS",    # Walt Disney Company<br>
+            "CVX",    # Chevron Corporation<br>
+            "GS",     # Goldman Sachs Group Inc.<br>
+            "AXP",    # American Express Company<br>
+            "BA",     # Boeing Company<br>
+            "F",      # Ford Motor Company<br>
+            "GM",     # General Motors Company<br>
+            "VZ",     # Verizon Communications Inc.<br>
+            "T",      # AT&T Inc.<br>
+            "TGT",    # Target Corporation<br>
+            "LOW",    # Lowe's Companies Inc.<br>
+            "FDX",    # FedEx Corporation<br>
+            "UPS",    # United Parcel Service Inc.<br>
+            "MMM",    # 3M Company<br>
+            "EBAY",   # eBay Inc.<br>
+            "ABT",    # Abbott Laboratories<br>
+            "PFE",    # Pfizer Inc.<br>
+            "MRK",    # Merck & Co. Inc.<br>
+            "LLY",    # Eli Lilly and Company<br>
+            "ABBV",   # AbbVie Inc.<br>
+            "BMY",    # Bristol-Myers Squibb Company<br>
+            "CVS",    # CVS Health Corporation<br>
+            "CI",     # Cigna Group<br>
+            "ELV",    # Elevance Health Inc.<br>
+            "HUM",    # Humana Inc.<br>
+            "MDT",    # Medtronic plc<br>
+            "ISRG",   # Intuitive Surgical Inc.<br>
+            "GILD",   # Gilead Sciences Inc.<br>
+            "AMGN",   # Amgen Inc.<br>
+            "REGN",   # Regeneron Pharmaceuticals Inc.<br>
+            "VRTX",   # Vertex Pharmaceuticals Inc.<br>
+            "WFC",    # Wells Fargo & Company<br>
+            "C",      # Citigroup Inc.<br>
+            "MS",     # Morgan Stanley<br>
+            "SCHW",   # Charles Schwab Corporation<br>
+            "BLK",    # BlackRock Inc.<br>
+            "SPGI",   # S&P Global Inc.<br>
+            "MCO",    # Moody's Corporation<br>
+            "ICE",    # Intercontinental Exchange Inc.<br>
+            "CME",    # CME Group Inc.<br>
+            "COF",    # Capital One Financial Corporation<br>
+            "USB",    # U.S. Bancorp<br>
+            "PNC",    # PNC Financial Services Group Inc.<br>
+            "TFC",    # Truist Financial Corporation<br>
+            "BNY",    # BNY Mellon<br>
+            "MET",    # MetLife Inc.<br>
+            "PRU",    # Prudential Financial Inc.<br>
         </div>
         <div class="data jamsAI">
             <h3 class="data-title"> jamsAI</h3>
@@ -79,6 +143,8 @@
                 e.preventDefault()
                 let symbolInput = document.getElementById('search-input');
                 let symbol = symbolInput.value.trim()
+                // define chatbox for debugging
+                let chatBox = document.getElementById('chat');
                 if (!symbol) return;
                 
                 try {
@@ -119,7 +185,6 @@
                     }
                     
                     // formalize data to html 
-                    let chatBox = document.getElementById('chat');
                     let SMediaBox = document.getElementById('SMedia');
                     let newsBox = document.getElementById('News');
                     let stockBot = document.getElementById('jamsAI');
@@ -148,6 +213,7 @@
                 document.getElementById('search-input').value = ticker;
                 document.getElementById('search-form').requestSubmit()
             }
+            // monitor arrow buttons - to-AI is out of use
             document.getElementById('to-news').addEventListener("click", function(){
                 let url = "{{ url_for('newsPanel') }}"
                 if (ticker){
