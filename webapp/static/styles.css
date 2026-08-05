@@ -182,6 +182,13 @@ body::before {
     color: #333333;
 }
 
+.data-description{
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
 #ticker{
     padding: None;
     margin: None;

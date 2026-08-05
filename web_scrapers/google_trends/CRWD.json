@@ -1,24 +1,13 @@
 {
     "timeline_data": [
         {
-            "date": "Jul 27\u2009\u2013\u2009Aug 2, 2025",
-            "timestamp": "1753574400",
-            "values": [
-                {
-                    "query": "AAPL",
-                    "value": "72",
-                    "extracted_value": 72
-                }
-            ]
-        },
-        {
             "date": "Aug 3\u2009\u2013\u20099, 2025",
             "timestamp": "1754179200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "100",
-                    "extracted_value": 100
+                    "query": "CRWD",
+                    "value": "43",
+                    "extracted_value": 43
                 }
             ]
         },
@@ -27,9 +16,9 @@
             "timestamp": "1754784000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "96",
-                    "extracted_value": 96
+                    "query": "CRWD",
+                    "value": "47",
+                    "extracted_value": 47
                 }
             ]
         },
@@ -38,9 +27,9 @@
             "timestamp": "1755388800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "75",
-                    "extracted_value": 75
+                    "query": "CRWD",
+                    "value": "43",
+                    "extracted_value": 43
                 }
             ]
         },
@@ -49,9 +38,9 @@
             "timestamp": "1755993600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "64",
-                    "extracted_value": 64
+                    "query": "CRWD",
+                    "value": "77",
+                    "extracted_value": 77
                 }
             ]
         },
@@ -60,9 +49,9 @@
             "timestamp": "1756598400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "64",
-                    "extracted_value": 64
+                    "query": "CRWD",
+                    "value": "35",
+                    "extracted_value": 35
                 }
             ]
         },
@@ -71,9 +60,9 @@
             "timestamp": "1757203200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "89",
-                    "extracted_value": 89
+                    "query": "CRWD",
+                    "value": "36",
+                    "extracted_value": 36
                 }
             ]
         },
@@ -82,9 +71,9 @@
             "timestamp": "1757808000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "67",
-                    "extracted_value": 67
+                    "query": "CRWD",
+                    "value": "51",
+                    "extracted_value": 51
                 }
             ]
         },
@@ -93,9 +82,9 @@
             "timestamp": "1758412800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "71",
-                    "extracted_value": 71
+                    "query": "CRWD",
+                    "value": "41",
+                    "extracted_value": 41
                 }
             ]
         },
@@ -104,9 +93,9 @@
             "timestamp": "1759017600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "60",
-                    "extracted_value": 60
+                    "query": "CRWD",
+                    "value": "39",
+                    "extracted_value": 39
                 }
             ]
         },
@@ -115,9 +104,9 @@
             "timestamp": "1759622400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "52",
-                    "extracted_value": 52
+                    "query": "CRWD",
+                    "value": "37",
+                    "extracted_value": 37
                 }
             ]
         },
@@ -126,9 +115,9 @@
             "timestamp": "1760227200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "50",
-                    "extracted_value": 50
+                    "query": "CRWD",
+                    "value": "31",
+                    "extracted_value": 31
                 }
             ]
         },
@@ -137,9 +126,9 @@
             "timestamp": "1760832000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "62",
-                    "extracted_value": 62
+                    "query": "CRWD",
+                    "value": "30",
+                    "extracted_value": 30
                 }
             ]
         },
@@ -148,9 +137,9 @@
             "timestamp": "1761436800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "83",
-                    "extracted_value": 83
+                    "query": "CRWD",
+                    "value": "31",
+                    "extracted_value": 31
                 }
             ]
         },
@@ -159,9 +148,9 @@
             "timestamp": "1762041600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "52",
-                    "extracted_value": 52
+                    "query": "CRWD",
+                    "value": "27",
+                    "extracted_value": 27
                 }
             ]
         },
@@ -170,9 +159,9 @@
             "timestamp": "1762646400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "53",
-                    "extracted_value": 53
+                    "query": "CRWD",
+                    "value": "25",
+                    "extracted_value": 25
                 }
             ]
         },
@@ -181,9 +170,9 @@
             "timestamp": "1763251200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "49",
-                    "extracted_value": 49
+                    "query": "CRWD",
+                    "value": "27",
+                    "extracted_value": 27
                 }
             ]
         },
@@ -192,9 +181,9 @@
             "timestamp": "1763856000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "42",
-                    "extracted_value": 42
+                    "query": "CRWD",
+                    "value": "25",
+                    "extracted_value": 25
                 }
             ]
         },
@@ -203,7 +192,7 @@
             "timestamp": "1764460800",
             "values": [
                 {
-                    "query": "AAPL",
+                    "query": "CRWD",
                     "value": "48",
                     "extracted_value": 48
                 }
@@ -214,9 +203,9 @@
             "timestamp": "1765065600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "46",
-                    "extracted_value": 46
+                    "query": "CRWD",
+                    "value": "22",
+                    "extracted_value": 22
                 }
             ]
         },
@@ -225,9 +214,9 @@
             "timestamp": "1765670400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "44",
-                    "extracted_value": 44
+                    "query": "CRWD",
+                    "value": "24",
+                    "extracted_value": 24
                 }
             ]
         },
@@ -236,9 +225,9 @@
             "timestamp": "1766275200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "32",
-                    "extracted_value": 32
+                    "query": "CRWD",
+                    "value": "19",
+                    "extracted_value": 19
                 }
             ]
         },
@@ -247,9 +236,9 @@
             "timestamp": "1766880000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "27",
-                    "extracted_value": 27
+                    "query": "CRWD",
+                    "value": "21",
+                    "extracted_value": 21
                 }
             ]
         },
@@ -258,9 +247,9 @@
             "timestamp": "1767484800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "42",
-                    "extracted_value": 42
+                    "query": "CRWD",
+                    "value": "29",
+                    "extracted_value": 29
                 }
             ]
         },
@@ -269,9 +258,9 @@
             "timestamp": "1768089600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "43",
-                    "extracted_value": 43
+                    "query": "CRWD",
+                    "value": "28",
+                    "extracted_value": 28
                 }
             ]
         },
@@ -280,9 +269,9 @@
             "timestamp": "1768694400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "43",
-                    "extracted_value": 43
+                    "query": "CRWD",
+                    "value": "21",
+                    "extracted_value": 21
                 }
             ]
         },
@@ -291,9 +280,9 @@
             "timestamp": "1769299200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "71",
-                    "extracted_value": 71
+                    "query": "CRWD",
+                    "value": "29",
+                    "extracted_value": 29
                 }
             ]
         },
@@ -302,9 +291,9 @@
             "timestamp": "1769904000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "56",
-                    "extracted_value": 56
+                    "query": "CRWD",
+                    "value": "35",
+                    "extracted_value": 35
                 }
             ]
         },
@@ -313,9 +302,9 @@
             "timestamp": "1770508800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "52",
-                    "extracted_value": 52
+                    "query": "CRWD",
+                    "value": "28",
+                    "extracted_value": 28
                 }
             ]
         },
@@ -324,9 +313,9 @@
             "timestamp": "1771113600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "46",
-                    "extracted_value": 46
+                    "query": "CRWD",
+                    "value": "36",
+                    "extracted_value": 36
                 }
             ]
         },
@@ -335,9 +324,9 @@
             "timestamp": "1771718400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "51",
-                    "extracted_value": 51
+                    "query": "CRWD",
+                    "value": "61",
+                    "extracted_value": 61
                 }
             ]
         },
@@ -346,9 +335,9 @@
             "timestamp": "1772323200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "50",
-                    "extracted_value": 50
+                    "query": "CRWD",
+                    "value": "62",
+                    "extracted_value": 62
                 }
             ]
         },
@@ -357,9 +346,9 @@
             "timestamp": "1772928000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "48",
-                    "extracted_value": 48
+                    "query": "CRWD",
+                    "value": "32",
+                    "extracted_value": 32
                 }
             ]
         },
@@ -368,9 +357,9 @@
             "timestamp": "1773532800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "96",
-                    "extracted_value": 96
+                    "query": "CRWD",
+                    "value": "31",
+                    "extracted_value": 31
                 }
             ]
         },
@@ -379,9 +368,9 @@
             "timestamp": "1774137600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "50",
-                    "extracted_value": 50
+                    "query": "CRWD",
+                    "value": "32",
+                    "extracted_value": 32
                 }
             ]
         },
@@ -390,9 +379,9 @@
             "timestamp": "1774742400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "54",
-                    "extracted_value": 54
+                    "query": "CRWD",
+                    "value": "32",
+                    "extracted_value": 32
                 }
             ]
         },
@@ -401,9 +390,9 @@
             "timestamp": "1775347200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "51",
-                    "extracted_value": 51
+                    "query": "CRWD",
+                    "value": "39",
+                    "extracted_value": 39
                 }
             ]
         },
@@ -412,9 +401,9 @@
             "timestamp": "1775952000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "58",
-                    "extracted_value": 58
+                    "query": "CRWD",
+                    "value": "32",
+                    "extracted_value": 32
                 }
             ]
         },
@@ -423,9 +412,9 @@
             "timestamp": "1776556800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "66",
-                    "extracted_value": 66
+                    "query": "CRWD",
+                    "value": "31",
+                    "extracted_value": 31
                 }
             ]
         },
@@ -434,9 +423,9 @@
             "timestamp": "1777161600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "77",
-                    "extracted_value": 77
+                    "query": "CRWD",
+                    "value": "28",
+                    "extracted_value": 28
                 }
             ]
         },
@@ -445,9 +434,9 @@
             "timestamp": "1777766400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "65",
-                    "extracted_value": 65
+                    "query": "CRWD",
+                    "value": "44",
+                    "extracted_value": 44
                 }
             ]
         },
@@ -456,9 +445,9 @@
             "timestamp": "1778371200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "62",
-                    "extracted_value": 62
+                    "query": "CRWD",
+                    "value": "43",
+                    "extracted_value": 43
                 }
             ]
         },
@@ -467,9 +456,9 @@
             "timestamp": "1778976000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "53",
-                    "extracted_value": 53
+                    "query": "CRWD",
+                    "value": "41",
+                    "extracted_value": 41
                 }
             ]
         },
@@ -478,9 +467,9 @@
             "timestamp": "1779580800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "56",
-                    "extracted_value": 56
+                    "query": "CRWD",
+                    "value": "48",
+                    "extracted_value": 48
                 }
             ]
         },
@@ -489,9 +478,9 @@
             "timestamp": "1780185600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "65",
-                    "extracted_value": 65
+                    "query": "CRWD",
+                    "value": "100",
+                    "extracted_value": 100
                 }
             ]
         },
@@ -500,9 +489,9 @@
             "timestamp": "1780790400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "69",
-                    "extracted_value": 69
+                    "query": "CRWD",
+                    "value": "42",
+                    "extracted_value": 42
                 }
             ]
         },
@@ -511,9 +500,9 @@
             "timestamp": "1781395200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "61",
-                    "extracted_value": 61
+                    "query": "CRWD",
+                    "value": "38",
+                    "extracted_value": 38
                 }
             ]
         },
@@ -522,9 +511,9 @@
             "timestamp": "1782000000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "65",
-                    "extracted_value": 65
+                    "query": "CRWD",
+                    "value": "35",
+                    "extracted_value": 35
                 }
             ]
         },
@@ -533,9 +522,9 @@
             "timestamp": "1782604800",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "57",
-                    "extracted_value": 57
+                    "query": "CRWD",
+                    "value": "52",
+                    "extracted_value": 52
                 }
             ]
         },
@@ -544,9 +533,9 @@
             "timestamp": "1783209600",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "58",
-                    "extracted_value": 58
+                    "query": "CRWD",
+                    "value": "43",
+                    "extracted_value": 43
                 }
             ]
         },
@@ -555,9 +544,9 @@
             "timestamp": "1783814400",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "62",
-                    "extracted_value": 62
+                    "query": "CRWD",
+                    "value": "42",
+                    "extracted_value": 42
                 }
             ]
         },
@@ -566,9 +555,9 @@
             "timestamp": "1784419200",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "46",
-                    "extracted_value": 46
+                    "query": "CRWD",
+                    "value": "32",
+                    "extracted_value": 32
                 }
             ]
         },
@@ -577,9 +566,9 @@
             "timestamp": "1785024000",
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "80",
-                    "extracted_value": 80
+                    "query": "CRWD",
+                    "value": "25",
+                    "extracted_value": 25
                 }
             ]
         },
@@ -589,9 +578,9 @@
             "partial_data": true,
             "values": [
                 {
-                    "query": "AAPL",
-                    "value": "27",
-                    "extracted_value": 27
+                    "query": "CRWD",
+                    "value": "30",
+                    "extracted_value": 30
                 }
             ]
         }

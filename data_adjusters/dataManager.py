@@ -16,7 +16,7 @@ from datetime import datetime, timezone, timedelta
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
 # since went up one parent folder all function calls are made from the invisible "parent-folder" - must change in prediction.py to use the right filepath
-from company_name_manager import get_top_50
+from company_name_manager import get_top
 # go down 1 parent folder
 sys.path.remove(parent_dir)
 
@@ -29,7 +29,7 @@ present = datetime.now().strftime('%Y-%m-%d')
 present_df = pd.DataFrame([[present]])
 # comment date line out for debugging
 #present_df.to_csv('dates.csv', mode='a', index=False)
-tickers = get_top_50()
+tickers = get_top()
 
 for ticker in tickers:
     # download all the stocks past date of last upload

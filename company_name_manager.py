@@ -98,58 +98,18 @@ def get_other_names(name):
 #print("Full names array sample: ", full_names)
 #print("Common names array sample:", common_names)
 
-def get_top_50():
-    # top 50 tech companies
+def get_top():
+    # top 100 most popular companies as deemed by me
     tickers = [
-        "NVDA",   # NVIDIA Corporation
-        "AAPL",   # Apple Inc.
-        "MSFT",   # Microsoft Corporation
-        "GOOGL",  # Alphabet Inc. (Class A)
-        "GOOG",   # Alphabet Inc. (Class C)
-        "AMZN",   # Amazon.com Inc.
-        "META",   # Meta Platforms Inc.
-        "AVGO",   # Broadcom Inc.
-        "TSLA",   # Tesla Inc.
-        "ASML",   # ASML Holding N.V.
-        "ADBE",   # Adobe Inc.
-        "CSCO",   # Cisco Systems Inc.
-        "INTC",   # Intel Corporation
-        "AMD",    # Advanced Micro Devices Inc.
-        "QCOM",   # Qualcomm Inc.
-        "TXN",    # Texas Instruments Inc.
-        "INTU",   # Intuit Inc.
-        "AMAT",   # Applied Materials Inc.
-        "MU",     # Micron Technology Inc.
-        "ADI",    # Analog Devices Inc.
-        "LRCX",   # Lam Research Corporation
-        "KLAC",   # KLA Corporation
-        "SNPS",   # Synopsys Inc.
-        "CDNS",   # Cadence Design Systems Inc.
-        "PANW",   # Palo Alto Networks Inc.
-        "CRWD",   # CrowdStrike Holdings Inc.
-        "FTNT",   # Fortinet Inc.
-        "PYPL",   # PayPal Holdings Inc.
-        "NFLX",   # Netflix Inc.
-        "CMCSA",  # Comcast Corporation
-        "PEP",    # PepsiCo Inc.
-        "COST",   # Costco Wholesale Corporation
-        "SBUX",   # Starbucks Corporation
-        "MRVL",   # Marvell Technology Inc.
-        "ADSK",   # Autodesk Inc.
-        "WDAY",   # Workday Inc.
-        "TEAM",   # Atlassian Corporation
-        "ZS",     # Zscaler Inc.
-        "DDOG",   # Datadog Inc.
-        "MDB",    # MongoDB Inc.
-        "SNOW",   # Snowflake Inc.
-        "DOCU",   # DocuSign Inc.
-        "OKTA",   # Okta Inc.
-        "NXPI",   # NXP Semiconductors N.V.
-        "MCHP",   # Microchip Technology Inc.
-        "ON",     # ON Semiconductor Corporation
-        "EA",     # Electronic Arts Inc.
-        "ROKU",   # Roku Inc.
-        "ZM",     # Zoom Communications Inc.
-        "CTSH",   # Cognizant Technology Solutions Corp.
+        "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "GOOG", "META", "TSLA", "BRK-B", "AVGO",
+        "JPM", "V", "MA", "WMT", "UNH", "XOM", "JNJ", "PG", "HD", "COST",
+        "KO", "PEP", "BAC", "NFLX", "ADBE", "CRM", "ORCL", "CSCO", "INTC", "AMD",
+        "QCOM", "IBM", "MCD", "SBUX", "NKE", "DIS", "CVX", "GS", "AXP", "BA",
+        "F", "GM", "VZ", "T", "PYPL", "TGT", "LOW", "FDX", "UPS", "MMM",
+        "EBAY", "TXN", "INTU", "AMAT", "MU", "ADI", "LRCX", "KLAC", "SNPS", "CDNS",
+        "PANW", "CRWD", "FTNT", "NXPI", "MCHP", "ON", "EA", "CTSH", "ABT", "PFE",
+        "MRK", "LLY", "ABBV", "BMY", "CVS", "CI", "ELV", "HUM", "MDT", "ISRG",
+        "GILD", "AMGN", "REGN", "VRTX", "WFC", "C", "MS", "SCHW", "BLK", "SPGI",
+        "MCO", "ICE", "CME", "COF", "USB", "PNC", "TFC", "BNY", "MET", "PRU"
     ]
     return tickers

@@ -1,0 +1,588 @@
+{
+    "timeline_data": [
+        {
+            "date": "Aug 3\u2009\u2013\u20099, 2025",
+            "timestamp": "1754179200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "75",
+                    "extracted_value": 75
+                }
+            ]
+        },
+        {
+            "date": "Aug 10\u2009\u2013\u200916, 2025",
+            "timestamp": "1754784000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "76",
+                    "extracted_value": 76
+                }
+            ]
+        },
+        {
+            "date": "Aug 17\u2009\u2013\u200923, 2025",
+            "timestamp": "1755388800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "78",
+                    "extracted_value": 78
+                }
+            ]
+        },
+        {
+            "date": "Aug 24\u2009\u2013\u200930, 2025",
+            "timestamp": "1755993600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "80",
+                    "extracted_value": 80
+                }
+            ]
+        },
+        {
+            "date": "Aug 31\u2009\u2013\u2009Sep 6, 2025",
+            "timestamp": "1756598400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "78",
+                    "extracted_value": 78
+                }
+            ]
+        },
+        {
+            "date": "Sep 7\u2009\u2013\u200913, 2025",
+            "timestamp": "1757203200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "74",
+                    "extracted_value": 74
+                }
+            ]
+        },
+        {
+            "date": "Sep 14\u2009\u2013\u200920, 2025",
+            "timestamp": "1757808000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "70",
+                    "extracted_value": 70
+                }
+            ]
+        },
+        {
+            "date": "Sep 21\u2009\u2013\u200927, 2025",
+            "timestamp": "1758412800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "73",
+                    "extracted_value": 73
+                }
+            ]
+        },
+        {
+            "date": "Sep 28\u2009\u2013\u2009Oct 4, 2025",
+            "timestamp": "1759017600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "74",
+                    "extracted_value": 74
+                }
+            ]
+        },
+        {
+            "date": "Oct 5\u2009\u2013\u200911, 2025",
+            "timestamp": "1759622400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "74",
+                    "extracted_value": 74
+                }
+            ]
+        },
+        {
+            "date": "Oct 12\u2009\u2013\u200918, 2025",
+            "timestamp": "1760227200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "72",
+                    "extracted_value": 72
+                }
+            ]
+        },
+        {
+            "date": "Oct 19\u2009\u2013\u200925, 2025",
+            "timestamp": "1760832000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "71",
+                    "extracted_value": 71
+                }
+            ]
+        },
+        {
+            "date": "Oct 26\u2009\u2013\u2009Nov 1, 2025",
+            "timestamp": "1761436800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "68",
+                    "extracted_value": 68
+                }
+            ]
+        },
+        {
+            "date": "Nov 2\u2009\u2013\u20098, 2025",
+            "timestamp": "1762041600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "70",
+                    "extracted_value": 70
+                }
+            ]
+        },
+        {
+            "date": "Nov 9\u2009\u2013\u200915, 2025",
+            "timestamp": "1762646400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "72",
+                    "extracted_value": 72
+                }
+            ]
+        },
+        {
+            "date": "Nov 16\u2009\u2013\u200922, 2025",
+            "timestamp": "1763251200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "75",
+                    "extracted_value": 75
+                }
+            ]
+        },
+        {
+            "date": "Nov 23\u2009\u2013\u200929, 2025",
+            "timestamp": "1763856000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "73",
+                    "extracted_value": 73
+                }
+            ]
+        },
+        {
+            "date": "Nov 30\u2009\u2013\u2009Dec 6, 2025",
+            "timestamp": "1764460800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "74",
+                    "extracted_value": 74
+                }
+            ]
+        },
+        {
+            "date": "Dec 7\u2009\u2013\u200913, 2025",
+            "timestamp": "1765065600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "72",
+                    "extracted_value": 72
+                }
+            ]
+        },
+        {
+            "date": "Dec 14\u2009\u2013\u200920, 2025",
+            "timestamp": "1765670400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "72",
+                    "extracted_value": 72
+                }
+            ]
+        },
+        {
+            "date": "Dec 21\u2009\u2013\u200927, 2025",
+            "timestamp": "1766275200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "68",
+                    "extracted_value": 68
+                }
+            ]
+        },
+        {
+            "date": "Dec 28, 2025\u2009\u2013\u2009Jan 3, 2026",
+            "timestamp": "1766880000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "71",
+                    "extracted_value": 71
+                }
+            ]
+        },
+        {
+            "date": "Jan 4\u2009\u2013\u200910, 2026",
+            "timestamp": "1767484800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "72",
+                    "extracted_value": 72
+                }
+            ]
+        },
+        {
+            "date": "Jan 11\u2009\u2013\u200917, 2026",
+            "timestamp": "1768089600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "70",
+                    "extracted_value": 70
+                }
+            ]
+        },
+        {
+            "date": "Jan 18\u2009\u2013\u200924, 2026",
+            "timestamp": "1768694400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "69",
+                    "extracted_value": 69
+                }
+            ]
+        },
+        {
+            "date": "Jan 25\u2009\u2013\u200931, 2026",
+            "timestamp": "1769299200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "75",
+                    "extracted_value": 75
+                }
+            ]
+        },
+        {
+            "date": "Feb 1\u2009\u2013\u20097, 2026",
+            "timestamp": "1769904000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "82",
+                    "extracted_value": 82
+                }
+            ]
+        },
+        {
+            "date": "Feb 8\u2009\u2013\u200914, 2026",
+            "timestamp": "1770508800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "97",
+                    "extracted_value": 97
+                }
+            ]
+        },
+        {
+            "date": "Feb 15\u2009\u2013\u200921, 2026",
+            "timestamp": "1771113600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "100",
+                    "extracted_value": 100
+                }
+            ]
+        },
+        {
+            "date": "Feb 22\u2009\u2013\u200928, 2026",
+            "timestamp": "1771718400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "92",
+                    "extracted_value": 92
+                }
+            ]
+        },
+        {
+            "date": "Mar 1\u2009\u2013\u20097, 2026",
+            "timestamp": "1772323200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "80",
+                    "extracted_value": 80
+                }
+            ]
+        },
+        {
+            "date": "Mar 8\u2009\u2013\u200914, 2026",
+            "timestamp": "1772928000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "81",
+                    "extracted_value": 81
+                }
+            ]
+        },
+        {
+            "date": "Mar 15\u2009\u2013\u200921, 2026",
+            "timestamp": "1773532800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "77",
+                    "extracted_value": 77
+                }
+            ]
+        },
+        {
+            "date": "Mar 22\u2009\u2013\u200928, 2026",
+            "timestamp": "1774137600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "83",
+                    "extracted_value": 83
+                }
+            ]
+        },
+        {
+            "date": "Mar 29\u2009\u2013\u2009Apr 4, 2026",
+            "timestamp": "1774742400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "82",
+                    "extracted_value": 82
+                }
+            ]
+        },
+        {
+            "date": "Apr 5\u2009\u2013\u200911, 2026",
+            "timestamp": "1775347200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "84",
+                    "extracted_value": 84
+                }
+            ]
+        },
+        {
+            "date": "Apr 12\u2009\u2013\u200918, 2026",
+            "timestamp": "1775952000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "89",
+                    "extracted_value": 89
+                }
+            ]
+        },
+        {
+            "date": "Apr 19\u2009\u2013\u200925, 2026",
+            "timestamp": "1776556800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "84",
+                    "extracted_value": 84
+                }
+            ]
+        },
+        {
+            "date": "Apr 26\u2009\u2013\u2009May 2, 2026",
+            "timestamp": "1777161600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "85",
+                    "extracted_value": 85
+                }
+            ]
+        },
+        {
+            "date": "May 3\u2009\u2013\u20099, 2026",
+            "timestamp": "1777766400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "86",
+                    "extracted_value": 86
+                }
+            ]
+        },
+        {
+            "date": "May 10\u2009\u2013\u200916, 2026",
+            "timestamp": "1778371200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "85",
+                    "extracted_value": 85
+                }
+            ]
+        },
+        {
+            "date": "May 17\u2009\u2013\u200923, 2026",
+            "timestamp": "1778976000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "86",
+                    "extracted_value": 86
+                }
+            ]
+        },
+        {
+            "date": "May 24\u2009\u2013\u200930, 2026",
+            "timestamp": "1779580800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "94",
+                    "extracted_value": 94
+                }
+            ]
+        },
+        {
+            "date": "May 31\u2009\u2013\u2009Jun 6, 2026",
+            "timestamp": "1780185600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "93",
+                    "extracted_value": 93
+                }
+            ]
+        },
+        {
+            "date": "Jun 7\u2009\u2013\u200913, 2026",
+            "timestamp": "1780790400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "89",
+                    "extracted_value": 89
+                }
+            ]
+        },
+        {
+            "date": "Jun 14\u2009\u2013\u200920, 2026",
+            "timestamp": "1781395200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "88",
+                    "extracted_value": 88
+                }
+            ]
+        },
+        {
+            "date": "Jun 21\u2009\u2013\u200927, 2026",
+            "timestamp": "1782000000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "84",
+                    "extracted_value": 84
+                }
+            ]
+        },
+        {
+            "date": "Jun 28\u2009\u2013\u2009Jul 4, 2026",
+            "timestamp": "1782604800",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "82",
+                    "extracted_value": 82
+                }
+            ]
+        },
+        {
+            "date": "Jul 5\u2009\u2013\u200911, 2026",
+            "timestamp": "1783209600",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "82",
+                    "extracted_value": 82
+                }
+            ]
+        },
+        {
+            "date": "Jul 12\u2009\u2013\u200918, 2026",
+            "timestamp": "1783814400",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "77",
+                    "extracted_value": 77
+                }
+            ]
+        },
+        {
+            "date": "Jul 19\u2009\u2013\u200925, 2026",
+            "timestamp": "1784419200",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "82",
+                    "extracted_value": 82
+                }
+            ]
+        },
+        {
+            "date": "Jul 26\u2009\u2013\u2009Aug 1, 2026",
+            "timestamp": "1785024000",
+            "values": [
+                {
+                    "query": "T",
+                    "value": "81",
+                    "extracted_value": 81
+                }
+            ]
+        },
+        {
+            "date": "Aug 2\u2009\u2013\u20098, 2026",
+            "timestamp": "1785628800",
+            "partial_data": true,
+            "values": [
+                {
+                    "query": "T",
+                    "value": "81",
+                    "extracted_value": 81
+                }
+            ]
+        }
+    ]
+}

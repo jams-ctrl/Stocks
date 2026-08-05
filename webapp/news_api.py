@@ -68,7 +68,7 @@ def to_mention(article:dict, ticker:str, fetched_at:str) -> dict | None:
 
     description = article.get("description") or ""
     # visual declaration of authority - CHANGE when reloading database
-    text = f"{description}\n\n[source authority: {authority}/5]"
+    text = description
     # put data in format of sqlite table
     return {
         "ticker": ticker, 

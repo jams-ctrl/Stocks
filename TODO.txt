@@ -1,20 +1,17 @@
-Deploy & Ship today!!(Tues Jul 28)
+Deploy & Ship soon!!(Wed Aug 5)
 Do:
+Check for naming inconsistencites such as brk.b -> brk-b and bk -> bny 
+to make the program not crash
+Update readme and upload project!
+Enjoy hackathon!
 
 Research:
-How to make a reinforcement-learning AI with tensorflow (or something else)
-How to use cron + implement into whole project
 
 Look At:
-The guardian
-NYT
-As possible news sources
 
 Plan:
-Add google trends/ searches?
 
-Do for part 2:
-Make model predict "hold" more - update k-value or rm weight dict
+
 
 
 

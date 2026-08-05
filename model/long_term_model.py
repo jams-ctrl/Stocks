@@ -12,13 +12,13 @@ import sys
 # go up one parent folder
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(parent_dir)
-from company_name_manager import get_top_50
+from company_name_manager import get_top
 # go down a parent folder
 sys.path.remove(parent_dir)
 
 
 # get top 50 companies
-tickers = get_top_50()
+tickers = get_top()
 # cycle through each company 
 # no loop for now for debugging
 for ticker in tickers:

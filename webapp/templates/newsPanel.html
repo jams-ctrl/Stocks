@@ -13,12 +13,14 @@
             <div class="box-item" id="CNBC">CNBC</div>
             <div class="box-item" id="wallStreet">General News</div>
             <div class="box-item" >Google Trends
+                <p class="data-description">A line graph sourced from google trends that shows the frequency of the trade overtime. If no graph shows up, I was unfortunately unable to obtain the graph due to strict api limits. </p>
                 <canvas id="chart"></canvas>
             </div>
             <div class="box-item" id="Benzinga">Benzinga & Seeking Alpha</div>
             <div class="box-item" id="Edgar">Edgar</div>
             <div class="box-item">
                 <p class="data-title">Insider Trades</p>
+                <p class="data-description">A list of LEGAL insider trades made by company executives, as they are required to publicly broadcast their stock trades pertaining to their company as mandated by the US government. If empty, this means Finnhub's API limit has been exceeded. Please wait an hour before trying again. </p>
                 <table id="insiderTable">
                     <thead style="background: #ff7070;">
                         <th style="text-align: left; padding:6px">Year</th> 
@@ -48,7 +50,7 @@
                     // debugging box - equivalent to chat-box on main page
                     let yahoo_id = document.getElementById('Yahoo');
                     if (!resp.ok || data.error) {
-                        yahoo_id.innerHTML = `<p class="data-text">Error: ${data.error || 'Server returned ' + resp.status}</p>`;
+                        yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance</p>` + `<p class="data-text">Error: Company not entered OR ${data.error || 'Server returned ' + resp.status}</p>`;
                         return;
                     }
                     // handle sqlite outputs from database calls and turn them into readable format
@@ -60,7 +62,7 @@
                         edgar = '<p class="data-text">No recent EDGAR filings.</p>';
                     }
                     let edgar_id = document.getElementById('Edgar');
-                    edgar_id.innerHTML = `<p class="data-title">Edgar</p>` + edgar;
+                    edgar_id.innerHTML = `<p class="data-title">Edgar</p>` + `<p class="data-description">The SEC's official database containing annual revenue reports, financial filings, and general documents as mandated by US law</p>` + edgar;
                     //YAHOO
                     let yahoo
                     if (data.yahoo.length){
@@ -68,7 +70,7 @@
                     } else {
                         yahoo = '<p class="data-text">No recent Yahoo filings.</p>';
                     }
-                    yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance</p>` + yahoo;
+                    yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance - Click Me!</p>` + `<p class="data-description">An assortment of articles from Yahoo Finance's page from reputable publishers such as Insider Monkey, Zacks, and MTNewsWires. Links may not work due to yahoo constantly updating their HTML.</p>` + yahoo;
                     //CNBC
                     let cnbc
                     if (data.cnbc.length){
@@ -77,7 +79,7 @@
                         cnbc = '<p class="data-text">No recent CNBC filings.</p>';
                     }
                     let cnbc_id = document.getElementById('CNBC');
-                    cnbc_id.innerHTML = `<p class="data-title">CNBC</p>` + cnbc;
+                    cnbc_id.innerHTML = `<p class="data-title">CNBC</p>` + `<p class="data-description">Articles from a reputable american buisness news network, a "world leader in business news and real-time financial market coverage"</p>` + cnbc;
                     // STOCKTWITS
                     let stocktwits;
                     if (data.stocktwits.length){
@@ -86,7 +88,7 @@
                         stocktwits = '<p class="data-text">No recent StockTwits mentions.</p>';
                     }
                     let stocktwits_id = document.getElementById('Stocktwits');
-                    stocktwits_id.innerHTML = `<p class="data-title">Stocktwits</p>` + stocktwits;
+                    stocktwits_id.innerHTML = `<p class="data-title">Stocktwits</p>` + `<p class="data-description">Posts from a reddit-like forum of stock enthusiasts, ranked but number of followers the influencer has</p>` + stocktwits;
                     // NEWSAPI - originally created for 24/7 wall street but I realized it didnt have enough sources and I was too lazy to change variable names
                     //  - it was at this point i realized I could've used a function for all of this... But no going back now! Customization, right!!!!
                     let wallStreet;
@@ -96,7 +98,7 @@
                         wallStreet = '<p class="data-text">No recent general news mentions.</p>';
                     }
                     let wallStreet_id = document.getElementById('wallStreet');
-                    wallStreet_id.innerHTML = `<p class="data-title">General News</p>` + wallStreet;
+                    wallStreet_id.innerHTML = `<p class="data-title">General News</p>` + `<p class="data-description">General news from a provided named NewsAPI, includes reputable sources such as Barchart and 24/7 Wall Street </p>` + wallStreet;
                     // BENZINGA and SEEKINGALPHA
                     let benzinga;
                     if (data.benzinga.length){
@@ -105,7 +107,7 @@
                         benzinga = '<p class="data-text">No recent Benzinga/Seeking Alpha mentions.</p>';
                     }
                     let benzinga_id = document.getElementById('Benzinga');
-                    benzinga_id.innerHTML = `<p class="data-title">Bezinga & Seeking Alpha</p>` + benzinga;
+                    benzinga_id.innerHTML = `<p class="data-title">Bezinga & Seeking Alpha</p>` + `<p class="data-description">Articles from 2 reputable news outlets, Benzinga and Seeking Alpha</p>` +benzinga;
                     // GOOGLE TRENDS
                     // get json file and turn it into useable data
                     fetch(`/trends/${ticker}`).then(res=>res.json()).then(json =>{
