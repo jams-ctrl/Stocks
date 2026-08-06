@@ -1,20 +1,20 @@
 import pandas as pd
 import re
-import urllib.request
+import requests
 import io
 
 # get the ticker symbols, the full names, and the common names of all the companies and put them in a list for easy conversion
 def get_sp500_lists():
     # go to wikipedia page
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    req = urllib.request.Request(
-        url, 
-        headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    )
-    with urllib.request.urlopen(req) as response:
-        html_str = response.read().decode('utf-8')
-        clean_buffer = io.StringIO(html_str)
-        tables = pd.read_html(clean_buffer, match="Symbol")
+    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+
+    response = requests.get(url, headers=headers)
+    # debug error
+    response.raise_for_status
+    html_str = response.text
+    clean_buffer = io.StringIO(html_str)
+    tables = pd.read_html(clean_buffer, match="Symbol")
 
     # take correct table from webpage
     df = tables[0]

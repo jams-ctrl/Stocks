@@ -25,7 +25,7 @@ from web_scrapers.edgar_scraper import get_edgar_filings
 from web_scrapers.stocktwits_scraper import get_stocktwits_mentions
 from web_scrapers.finnhub_scraper import get_finnhub_mentions
 
-from company_name_manager import get_top_50
+from company_name_manager import get_top
 
 load_dotenv()
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     # parser.add_argument("ticker", help="stock ticker symbol, e.g. TSLA")
     # args = parser.parse_args()
     # get top 50 companies
-    tickers = get_top_50()
+    tickers = get_top()
     # run for each company
     for ticker in tickers:
         run(ticker)
