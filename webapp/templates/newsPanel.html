@@ -74,7 +74,7 @@
                     } else {
                         yahoo = '<p class="data-text">No recent Yahoo filings.</p>';
                     }
-                    yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance - Click Me!</p>` + `<p class="data-description">An assortment of articles from Yahoo Finance's page from reputable publishers such as Insider Monkey, Zacks, and MTNewsWires. Links may not work due to yahoo constantly updating their HTML.</p>` + yahoo;
+                    yahoo_id.innerHTML = `<p class="data-title">Yahoo Finance - Click Me!</p>` + `<p class="data-description">An assortment of articles from Yahoo Finance's page from reputable publishers such as Insider Monkey, Zacks, and MTNewsWires. Links may not work due to yahoo constantly updating their HTML</p>` + yahoo;
                     //CNBC
                     let cnbc
                     if (data.cnbc.length){
@@ -92,7 +92,7 @@
                         stocktwits = '<p class="data-text">No recent StockTwits mentions.</p>';
                     }
                     let stocktwits_id = document.getElementById('Stocktwits');
-                    stocktwits_id.innerHTML = `<p class="data-title">Stocktwits</p>` + `<p class="data-description">Posts from a reddit-like forum of stock enthusiasts, ranked but number of followers the influencer has</p>` + stocktwits;
+                    stocktwits_id.innerHTML = `<p class="data-title">Stocktwits</p>` + `<p class="data-description">Posts from a reddit-like forum of stock enthusiasts</p>` + stocktwits;
                     // NEWSAPI - originally created for 24/7 wall street but I realized it didnt have enough sources and I was too lazy to change variable names
                     //  - it was at this point i realized I could've used a function for all of this... But no going back now! Customization, right!!!!
                     let wallStreet;

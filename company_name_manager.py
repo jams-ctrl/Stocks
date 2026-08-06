@@ -101,15 +101,111 @@ def get_other_names(name):
 def get_top():
     # top 100 most popular companies as deemed by me
     tickers = [
-        "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "GOOG", "META", "TSLA", "BRK-B", "AVGO",
-        "JPM", "V", "MA", "WMT", "UNH", "XOM", "JNJ", "PG", "HD", "COST",
-        "KO", "PEP", "BAC", "NFLX", "ADBE", "CRM", "ORCL", "CSCO", "INTC", "AMD",
-        "QCOM", "IBM", "MCD", "SBUX", "NKE", "DIS", "CVX", "GS", "AXP", "BA",
-        "F", "GM", "VZ", "T", "PYPL", "TGT", "LOW", "FDX", "UPS", "MMM",
-        "EBAY", "TXN", "INTU", "AMAT", "MU", "ADI", "LRCX", "KLAC", "SNPS", "CDNS",
-        "PANW", "CRWD", "FTNT", "NXPI", "MCHP", "ON", "EA", "CTSH", "ABT", "PFE",
-        "MRK", "LLY", "ABBV", "BMY", "CVS", "CI", "ELV", "HUM", "MDT", "ISRG",
-        "GILD", "AMGN", "REGN", "VRTX", "WFC", "C", "MS", "SCHW", "BLK", "SPGI",
-        "MCO", "ICE", "CME", "COF", "USB", "PNC", "TFC", "BNY", "MET", "PRU"
+        "NVDA",   # NVIDIA Corporation
+        "AAPL",   # Apple Inc.
+        "MSFT",   # Microsoft Corporation
+        "GOOGL",  # Alphabet Inc. (Class A)
+        "GOOG",   # Alphabet Inc. (Class C)
+        "AMZN",   # Amazon.com Inc.
+        "META",   # Meta Platforms Inc.
+        "TSLA",   # Tesla Inc.
+        "ADBE",   # Adobe Inc.
+        "CSCO",   # Cisco Systems Inc.
+        "INTC",   # Intel Corporation
+        "AMD",    # Advanced Micro Devices Inc.
+        "QCOM",   # Qualcomm Inc.
+        "TXN",    # Texas Instruments Inc.
+        "INTU",   # Intuit Inc.
+        "AMAT",   # Applied Materials Inc.
+        "MU",     # Micron Technology Inc.
+        "ADI",    # Analog Devices Inc.
+        "LRCX",   # Lam Research Corporation
+        "KLAC",   # KLA Corporation
+        "SNPS",   # Synopsys Inc.
+        "CDNS",   # Cadence Design Systems Inc.
+        "PANW",   # Palo Alto Networks Inc.
+        "CRWD",   # CrowdStrike Holdings Inc.
+        "FTNT",   # Fortinet Inc.
+        "PYPL",   # PayPal Holdings Inc.
+        "NFLX",   # Netflix Inc.
+        "CMCSA",  # Comcast Corporation
+        "PEP",    # PepsiCo Inc.
+        "COST",   # Costco Wholesale Corporation
+        "SBUX",   # Starbucks Corporation
+        "MRVL",   # Marvell Technology Inc.
+        "ADSK",   # Autodesk Inc.
+        "WDAY",   # Workday Inc.
+        "ZS",     # Zscaler Inc.
+        "DDOG",   # Datadog Inc.
+        "NXPI",   # NXP Semiconductors N.V.
+        "MCHP",   # Microchip Technology Inc.
+        "ON",     # ON Semiconductor Corporation
+        "EA",     # Electronic Arts Inc.
+        "CTSH",   # Cognizant Technology Solutions Corp.
+        "BRK-B",  # Berkshire Hathaway Inc. (Class B)
+        "AVGO",   # Broadcom Inc.
+        "JPM",    # JPMorgan Chase & Co.
+        "V",      # Visa Inc.
+        "MA",     # Mastercard Inc.
+        "WMT",    # Walmart Inc.
+        "UNH",    # UnitedHealth Group Inc.
+        "XOM",    # ExxonMobil Corporation
+        "JNJ",    # Johnson & Johnson
+        "PG",     # Procter & Gamble Co.
+        "HD",     # Home Depot Inc.
+        "KO",     # Coca-Cola Company
+        "BAC",    # Bank of America Corporation
+        "CRM",    # Salesforce Inc.
+        "ORCL",   # Oracle Corporation
+        "IBM",    # International Business Machines Corporation
+        "MCD",    # McDonald's Corporation
+        "NKE",    # Nike Inc.
+        "DIS",    # Walt Disney Company
+        "CVX",    # Chevron Corporation
+        "GS",     # Goldman Sachs Group Inc.
+        "AXP",    # American Express Company
+        "BA",     # Boeing Company
+        "F",      # Ford Motor Company
+        "GM",     # General Motors Company
+        "VZ",     # Verizon Communications Inc.
+        "T",      # AT&T Inc.
+        "TGT",    # Target Corporation
+        "LOW",    # Lowe's Companies Inc.
+        "FDX",    # FedEx Corporation
+        "UPS",    # United Parcel Service Inc.
+        "MMM",    # 3M Company
+        "EBAY",   # eBay Inc.
+        "ABT",    # Abbott Laboratories
+        "PFE",    # Pfizer Inc.
+        "MRK",    # Merck & Co. Inc.
+        "LLY",    # Eli Lilly and Company
+        "ABBV",   # AbbVie Inc.
+        "BMY",    # Bristol-Myers Squibb Company
+        "CVS",    # CVS Health Corporation
+        "CI",     # Cigna Group
+        "ELV",    # Elevance Health Inc.
+        "HUM",    # Humana Inc.
+        "MDT",    # Medtronic plc
+        "ISRG",   # Intuitive Surgical Inc.
+        "GILD",   # Gilead Sciences Inc.
+        "AMGN",   # Amgen Inc.
+        "REGN",   # Regeneron Pharmaceuticals Inc.
+        "VRTX",   # Vertex Pharmaceuticals Inc.
+        "WFC",    # Wells Fargo & Company
+        "C",      # Citigroup Inc.
+        "MS",     # Morgan Stanley
+        "SCHW",   # Charles Schwab Corporation
+        "BLK",    # BlackRock Inc.
+        "SPGI",   # S&P Global Inc.
+        "MCO",    # Moody's Corporation
+        "ICE",    # Intercontinental Exchange Inc.
+        "CME",    # CME Group Inc.
+        "COF",    # Capital One Financial Corporation
+        "USB",    # U.S. Bancorp
+        "PNC",    # PNC Financial Services Group Inc.
+        "TFC",    # Truist Financial Corporation
+        "BNY",    # BNY Mellon
+        "MET",    # MetLife Inc.
+        "PRU",    # Prudential Financial Inc.
     ]
     return tickers

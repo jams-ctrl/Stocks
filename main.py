@@ -40,32 +40,32 @@ def run(ticker: str):
     # load hits from edgar
     edgar_user_agent = os.getenv("EDGAR_USER_AGENT")
     # make sure user agent enabled
-    # if edgar_user_agent:
-    #     try: 
-    #         # get full company name from ticker symbol
-    #         i,company_name,j = get_other_names(ticker)
-    #         # gets hits and appends them to all_mentions
-    #         edgar_hits = get_edgar_filings(company_name, edgar_user_agent)
-    #         print (f"[edgar] fetched {len(edgar_hits)} filings")
-    #         for m in edgar_hits:
-    #             m["source_type"] = "edgar"
-    #             all_mentions.append(m)
-    #     except Exception as e:
-    #         print(f"[edgar] error: {e}")
-    # else:
-    #     print("[edgar] skipped (set EDGAR_USER_AGENT and pass --company to enable)")
+    if edgar_user_agent:
+        try: 
+            # get full company name from ticker symbol
+            i,company_name,j = get_other_names(ticker)
+            # gets hits and appends them to all_mentions
+            edgar_hits = get_edgar_filings(company_name, edgar_user_agent)
+            print (f"[edgar] fetched {len(edgar_hits)} filings")
+            for m in edgar_hits:
+                m["source_type"] = "edgar"
+                all_mentions.append(m)
+        except Exception as e:
+            print(f"[edgar] error: {e}")
+    else:
+        print("[edgar] skipped (set EDGAR_USER_AGENT and pass --company to enable)")
 
     # load hits from stocktwits
     # no credientials needed
-    # try: 
-    #     # gets hits and appends
-    #     st_hits = get_stocktwits_mentions(ticker)
-    #     print (f"[stocktwits] fetched {len(st_hits)} filings")
-    #     for m in st_hits:
-    #         m["source_type"] = "stocktwits"
-    #         all_mentions.append(m)
-    # except Exception as e:
-    #     print(f"[stocktwits] error: {e}")
+    try: 
+        # gets hits and appends
+        st_hits = get_stocktwits_mentions(ticker)
+        print (f"[stocktwits] fetched {len(st_hits)} filings")
+        for m in st_hits:
+            m["source_type"] = "stocktwits"
+            all_mentions.append(m)
+    except Exception as e:
+        print(f"[stocktwits] error: {e}")
 
     # load hits from finnhub
     # API pre-coded into file
